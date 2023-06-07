@@ -1,0 +1,121 @@
+/* CSS File */
+
+body {
+    font-family: Arial, sans-serif;
+    color: #000;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: rgb(153, 51, 255);
+    font-size: 2.5rem;
+    text-align: left;
+    padding: 20px 0;
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h2 {
+    color: rgb(153, 51, 255);
+    margin-bottom: 1.5rem;
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+h5.card-title {
+    color: #ea3a60;
+    font-size: 1.25rem;
+}
+
+.card {
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-text {
+    color: #3c86c0;
+    font-size: 1rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+img.img-fluid {
+    max-width: 50%;
+    height: auto;
+}
+
+button {
+    background-color: rgb(153, 51, 255);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #fff; 
+    color: rgb(153, 51, 255);
+    border: 1px solid rgb(153, 51, 255);
+}
+
+.highlight {
+    color: rgb(153, 51, 255);
+    font-weight: bold;
+}
+
+
+
+
+/* from bloomshare web, modified */
+.pagelayer-divider-seperator {
+    border-top-style: solid;
+    border-top-color: #ea3a60;
+    border-top-width: 3px;
+    width: 20%;
+    display: inline-block;
+}
+
+.pagelayer-divider-holder {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    line-height: 0;
+    font-size: 0;
+}
+
+h1 .pagelayer-divider-holder {
+    margin-top: 12px;
+}
+
+/* aproximation of bloomshare footer */
+footer {
+    display: block;
+    width: 100%;
+    height: 57px;
+    background-color: #424242;
+    color: #ff5700;
+    text-align: center;
+    padding: 18px;
+    overflow: hidden;
+    margin-top: 70px;
+}
