@@ -20,6 +20,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
         $contract = '0x83e6b68028D3F25631B2e60f7023de201c1FE996';
         $svc_url = 'https://bloompay.bloomshares.com:48080';
+        $self_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
         $is_new = true;
 
         if (isset($_GET['api_key']) && !empty($_GET['api_key'])) {
@@ -52,9 +53,9 @@ ini_set('display_errors', 1);
             <?php if ($is_new) echo 'New Bloompay merchant wallet and API key have been generated. <br />'; ?>API key: <b><?= $api_key ?></b>
             </i>
         </div>
-        <br /><br />
-        Your  from your e-commerce store    will The gateway API key is directly tied with the
-        <br /><br />
+        <br />
+        USDS payments from your e-commerce store will be directed right to your merchant HD wallet which is linked to the assigned API key. 
+        <br /><br /><br />
 
         <!-- Section 1: Importing HD Wallet -->
         <div class="mb-5">
@@ -135,12 +136,20 @@ ini_set('display_errors', 1);
             </div>
         </div>
 
-        <br /><br />
+        <br />
 
         Now you are ready to receive payments in USDS. Payments from your ecommerce store linked to the generated API key
         will appear automatically in your TrustWallet.
 
         <br /><br /><br />
+
+        <div class="alert alert-danger" role="alert">
+            <i class="glyphicon glyphicon-hourglass"></i>
+            To prevent loss of funds make sure you write down your mnemonic phrase. You can also save direct link to this
+            exact page for your specific API key to easily import the same wallet in the future:<br />
+            <span class="highlight"><?= $self_url ?>?api_key=<?= $api_key ?></span>
+            </i>
+        </div>
 
     </div>
 
