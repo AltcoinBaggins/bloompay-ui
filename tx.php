@@ -92,12 +92,12 @@
                             <th scope="row"><?php echo $transaction['transaction_id']; ?></th>
                             <td><?php echo $transaction['wallet_id']; ?></td>
                             <td><?php echo $transaction['address']; ?></td>
-                            <td><?php echo $transaction['required_balance']; ?></td>
+                            <td><?php echo number_format($transaction['required_balance'], 8, '.', ''); ?></td>
                             <td><?php echo isset($transaction['metadata']['usd_amount']) ? $transaction['metadata']['usd_amount'] : ''; ?></td>
                             <td><?php echo isset($transaction['metadata']['usds_price']) ? $transaction['metadata']['usds_price'] : ''; ?></td>
                             <td><?php echo isset($transaction['metadata']['ip']) ? $transaction['metadata']['ip'] : ''; ?></td>
                             <td><?php echo $transaction['required_token']; ?></td>
-                            <td><?php echo $transaction['created_at']; ?></td>
+                            <td><?php echo date("Y-m-d H:i:s", $transaction['created_at']); ?></td>
                             <td><?php echo $transaction['status']; ?></td>
                         </tr>
                     <?php endforeach; ?>
