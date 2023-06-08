@@ -166,7 +166,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw Tokens</h5>
+                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw USDS</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -178,7 +178,7 @@
                             <label for="recipientAddress">Recipient Address</label>
                             <input type="text" class="form-control" id="recipientAddress" placeholder="Enter address">
                             <small id="addressHelp" class="form-text text-muted">
-                                Enter a valid recipient address in the format: 0x096C48E4D7BeA71059AcE1A23F3BccA6489455EE
+                                Enter a valid BNB Smart Chain address in the format: 0x096C48E4D7BeA71059AcE1A23F3BccA6489455EE
                             </small>
                         </div>
                         <button type="submit" class="btn btn-primary">Withdraw</button>
@@ -288,7 +288,7 @@
                 if (!validateAddress(recipientAddress)) {
                     // Display an error message
                     withdrawAlert.className = 'alert alert-danger';
-                    withdrawAlert.textContent = 'Invalid recipient address. Please enter a valid Ethereum address.';
+                    withdrawAlert.textContent = 'Invalid recipient address. Please enter a valid BNB address.';
                     withdrawAlert.style.display = 'block';
                     return;
                 }
