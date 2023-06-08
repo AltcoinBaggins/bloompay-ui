@@ -141,7 +141,15 @@ ini_set('display_errors', 1);
         Now you are ready to receive payments in USDS. Payments from your ecommerce store linked to the generated API key
         will appear automatically in your TrustWallet.
 
-        <br /><br /><br />
+        <br /><br />
+
+                <div class="alert alert-info" role="alert">
+            <i class="glyphicon glyphicon-hourglass"></i>
+            You can use any modern HD wallet witch supports BIP-0044 specification and BEP-20 tokens, in this example we will use TrustWallet.
+            </i>
+        </div>
+
+        
 
         <div class="alert alert-danger" role="alert">
             <i class="glyphicon glyphicon-hourglass"></i>
