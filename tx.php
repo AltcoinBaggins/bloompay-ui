@@ -68,7 +68,7 @@
         <?php else: ?>
 
         <div style="float: right;">
-            <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=">
+            <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success">
                 Wallet Import Wizard
             </a>
         </div>
