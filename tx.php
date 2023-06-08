@@ -140,7 +140,7 @@
             // Fill elements with values from the response
             walletAddressElement.textContent = response.merchant_address.address;
             walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
-            walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_usds_balance);
+            walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
           }
         };
 
