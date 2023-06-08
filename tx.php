@@ -68,7 +68,7 @@
         <?php else: ?>
 
         <div style="float: right;">
-            <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success">
+            <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success" data-loading="Loading Wizard">
                 Wallet Import Wizard
             </a>
         </div>
@@ -164,6 +164,30 @@
           return decimals.endsWith('.00000000') ? parseInt(decimals) : decimals;
         }
 
+    </script>
+    <script>
+        document.addEventListener('click', function(event) {
+            var target = event.target;
+            if (target.matches('[data-loading]')) {
+                handleElementClick(target);
+            }
+        });
+
+        function handleElementClick(element) {
+            var originalText = element.innerText;
+            var loadingText = element.getAttribute('data-loading');
+
+            element.innerText = loadingText;
+            element.setAttribute('disabled', 'disabled');
+
+            // Perform any additional actions or API calls here
+
+            // Simulating a delay of 2 seconds for demonstration purposes
+            setTimeout(function() {
+                element.innerText = originalText;
+                element.removeAttribute('disabled');
+            }, 2000);
+        }
     </script>
 </body>
 </html>
