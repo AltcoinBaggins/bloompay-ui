@@ -73,7 +73,7 @@
                 Withdraw
             </button>
             <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success" data-loading="Loading Wizard">
-                Wallet Import
+                Export Wallet
             </a><br />
 
             <br /> <br />
@@ -82,14 +82,6 @@
 
 
         <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Merchant API key</h5>
-                        <p class="card-text" style="font-size: 24px;"><b class="highlight"><?= $api_key ?></b></p>
-                    </div>
-                </div>
-            </div>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
@@ -114,6 +106,14 @@
                         <p class="card-text" style="font-size: 24px;"><b data-wallet-address class="highlight">...</b>
                             <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; float: right;" />
                         </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Merchant API key</h5>
+                        <p class="card-text" style="font-size: 24px;"><b class="highlight"><?= $api_key ?></b></p>
                     </div>
                 </div>
             </div>
