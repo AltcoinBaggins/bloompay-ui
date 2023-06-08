@@ -73,6 +73,10 @@
         Available USDS balance: <b data-wallet-usds-balance>...</b><br />
         BNB gas balance: <b data-wallet-bnb-balance>...</b><br />
         <br />
+        <a href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>&button=">
+            Getting started
+        </a>
+        <br />
 
             <h2>Transactions</h2>
             <table class="table">
