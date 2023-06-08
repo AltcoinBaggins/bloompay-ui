@@ -67,16 +67,18 @@
 
         <?php else: ?>
 
+        <div style="float: right;">
+            <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=">
+                Wallet import and set-up guide
+            </a>
+        </div>
 
         Merchant API key <b><?= $api_key ?></b><br />
         Merchant wallet address: <b data-wallet-address>...</b><br />
         Available USDS balance: <b data-wallet-usds-balance>...</b><br />
         BNB gas balance: <b data-wallet-bnb-balance>...</b><br />
-        <br />
-        <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=">
-            Getting started
-        </a>
-        <br /><br /><br />
+
+        <br /><br />
 
             <h2>Transactions</h2>
             <table class="table">
