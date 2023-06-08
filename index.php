@@ -41,6 +41,7 @@ ini_set('display_errors', 1);
         curl_close($ch);
 
         $mnemonic = $wallet['mnemonic'];
+        $merchant_address = $wallet['merchant_address']['address'];
     ?>
     <div class="container my-4">
         <h1 class="mb-5">Bloompay USDS Gateway Installation Guide<!--/h1-->
@@ -54,16 +55,16 @@ ini_set('display_errors', 1);
             </i>
         </div>
         <br />
-        USDS payments from your e-commerce store will be directed right to your merchant HD wallet which is linked to the assigned API key. 
+        USDS payments from your e-commerce store will be automatically sent to your merchant wallet which is linked to the assigned API key. 
         <br /><br /><br />
 
         <!-- Section 1: Importing HD Wallet -->
         <div class="mb-5">
-            <h2>Step 1: Importing your HD Wallet into TrustWallet</h2>
+            <h2>Step 1: Importing your Merchant Wallet into TrustWallet</h2>
 
         <div class="alert alert-info" role="alert">
             <i class="glyphicon glyphicon-hourglass"></i>
-            You can use any modern HD wallet witch supports BIP-0044 specification and BEP-20 tokens, in this example we will use TrustWallet.
+            You can use any wallet app that can hold USDS BEP-20 tokens to access your merchant wallet, in this tutorial well use TrustWallet.
             </i>
         </div>
 
@@ -138,24 +139,44 @@ ini_set('display_errors', 1);
 
         <br />
 
+        <!-- Section š: Sending gas -->
+        <div>
+            <h2>Step 3: Top-up BNB for gas</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">3.1 Send BNB</h5>
+                    <p>In order to automatically transfer payments to your merchant wallet address you will need top it up first with BNB to cover gas transaction fees. Approximately 0.00021 BNB will be spent on each successful USDS payment, so a balance of least 0.01 BNB is recommended.
+                    </p>
+                    <div class="text-center">
+                        <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
+                        <p class="card-text highlight"><?= $merchant_address ?></p>
+                    </div><br />
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">3.2 Check your Merchant Dashboard</h5>
+                    <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
+                    <div class="text-center">
+                        <a class="highlight" href="<?= $self_url ?>/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>/tx.php?api_key=<?= $api_key ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
         Now you are ready to receive payments in USDS. Payments from your ecommerce store linked to the generated API key
         will appear automatically in your TrustWallet.
 
         <br /><br />
 
-                <div class="alert alert-info" role="alert">
-            <i class="glyphicon glyphicon-hourglass"></i>
-            You can use any modern HD wallet witch supports BIP-0044 specification and BEP-20 tokens, in this example we will use TrustWallet.
-            </i>
-        </div>
-
-        
-
         <div class="alert alert-danger" role="alert">
             <i class="glyphicon glyphicon-hourglass"></i>
             To prevent loss of funds make sure you write down your mnemonic phrase. You can also save direct link to this
             exact page for your specific API key to easily import the same wallet in the future:<br />
-            <span class="highlight"><?= $self_url ?>?api_key=<?= $api_key ?></span>
+                <div class="text-center">
+                    <a class="highlight" href="<?= $self_url ?>?api_key=<?= $api_key ?>"><?= $self_url ?>?api_key=<?= $api_key ?></a>
+                </div>
             </i>
         </div>
 
