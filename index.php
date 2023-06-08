@@ -20,7 +20,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
         $contract = '0x83e6b68028D3F25631B2e60f7023de201c1FE996';
         $svc_url = 'https://bloompay.bloomshares.com:48080';
-        $self_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+        $self_url = "https://" . $_SERVER['HTTP_HOST'] . '/';//. $_SERVER['PHP_SELF'];
         $is_new = true;
 
         if (isset($_GET['api_key']) && !empty($_GET['api_key'])) {
@@ -158,7 +158,7 @@ ini_set('display_errors', 1);
                     <h5 class="card-title">3.2 Check your Merchant Dashboard</h5>
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
                     <div class="text-center">
-                        <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>/tx.php?api_key=<?= $api_key ?></a>
+                        <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
                     </div>
                 </div>
             </div>
