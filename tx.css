@@ -47,3 +47,8 @@ body, html {
 .login_container {
     padding: 0 2rem;
 }
+
+
+.card, .card-body {
+    height: 100%;
+}
