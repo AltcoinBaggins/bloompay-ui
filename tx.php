@@ -68,7 +68,11 @@
         <?php else: ?>
 
 
-        Recent transactions for merchant API key <b><?= $api_key ?></b><br /><br />
+        Merchant API key <b><?= $api_key ?></b><br />
+        Merchant wallet address: <b data-wallet-address></b>...<br />
+        Available USDS balance: <b data-wallet-usds-balance></b>...<br />
+        BNB gas balance: <b data-wallet-bnb-balance></b>...<br />
+        <br />
 
             <h2>Transactions</h2>
             <table class="table">
@@ -116,6 +120,44 @@
             document.execCommand("copy");
             document.body.removeChild(aux);
         }
+
+        var xhr = new XMLHttpRequest();
+        var url = 'https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet';
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+
+        // Set up the onload event handler
+        xhr.onload = function() {
+          // Check if the request was successful
+          if (xhr.status === 200) {
+            var response = xhr.response; // Get the response data
+
+            // Find elements with specific data attributes
+            var walletAddressElement = document.querySelector('[data-wallet-address]');
+            var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
+            var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
+
+            // Fill elements with values from the response
+            walletAddressElement.textContent = response.merchant_address.address;
+            walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+            walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_usds_balance);
+          }
+        };
+
+        // Send the request
+        xhr.send();
+
+        // Helper function to format value like a Bitcoin price to 8 decimals
+        function formatToBitcoinPrice(value) {
+          return parseFloat(value).toFixed(8);
+        }
+
+        // Helper function to format value like an Ethereum/BNB price to 8 decimals if necessary
+        function formatToEthereumBNBPrice(value) {
+          var decimals = parseFloat(value).toFixed(8);
+          return decimals.endsWith('.00000000') ? parseInt(decimals) : decimals;
+        }
+
     </script>
 </body>
 </html>
