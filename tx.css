@@ -52,3 +52,7 @@ body, html {
 .card, .card-body {
     height: 100%;
 }
+
+.table-yellow {
+  background-color: yellow;
+}

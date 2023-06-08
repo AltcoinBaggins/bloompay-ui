@@ -141,7 +141,7 @@
                 </thead>
                 <tbody>
                     <?php foreach($transactions as $transaction): ?>
-                        <tr class="<?php echo ($transaction['status'] == 'paid' || $transaction['status'] == 'collected' || $transaction['status'] == 'complete') ? 'table-success' : ''; ?>">
+                        <tr class="<?php echo ($transaction['status'] == 'collected') ? 'table-success' : ''; ?> <?php echo ($transaction['status'] == 'paid' || $transaction['status'] == 'complete') ? 'table-yellow' : ''; ?>">
                             <th scope="row"><?php echo $transaction['transaction_id']; ?></th>
                             <td><?php echo $transaction['wallet_id']; ?></td>
                             <td><?php echo $transaction['address']; ?></td>
