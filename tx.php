@@ -81,10 +81,43 @@
         </div>
 
 
-        Merchant API key <b><?= $api_key ?></b><br />
-        Merchant wallet address: <b data-wallet-address>...</b><br />
-        Available USDS balance: <b data-wallet-usds-balance>...</b><br />
-        BNB gas balance: <b data-wallet-bnb-balance>...</b><br />
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Merchant API key</h5>
+                        <p class="card-text" style="font-size: 24px;"><b><?= $api_key ?></b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Available USDS balance</h5>
+                        <p class="card-text" style="font-size: 24px;"><b data-wallet-usds-balance>...</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">BNB gas balance</h5>
+                        <p class="card-text" style="font-size: 24px;"><b data-wallet-bnb-balance>...</b></p>
+                        <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low! Recommended minimum amount is 0.01 BNB. Please top up.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Merchant wallet address</h5>
+                        <p class="card-text" style="font-size: 24px;"><b data-wallet-address>...</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low! Recommended minimum amount is 0.01 BNB. Please top up.</div> <br />
 
 
