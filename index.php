@@ -158,7 +158,7 @@ ini_set('display_errors', 1);
                     <h5 class="card-title">3.2 Check your Merchant Dashboard</h5>
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
                     <div class="text-center">
-                        <a class="highlight" href="<?= $self_url ?>/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>/tx.php?api_key=<?= $api_key ?></a>
+                        <a class="highlight" data-no-copy href="<?= $self_url ?>/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>/tx.php?api_key=<?= $api_key ?></a>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@ ini_set('display_errors', 1);
             To prevent loss of funds make sure you write down your mnemonic phrase. You can also save direct link to this
             exact page for your specific API key to easily import the same wallet in the future:<br />
                 <div class="text-center">
-                    <a class="highlight" href="<?= $self_url ?>?api_key=<?= $api_key ?>"><?= $self_url ?>?api_key=<?= $api_key ?></a>
+                    <a class="highlight" data-no-copy href="<?= $self_url ?>?api_key=<?= $api_key ?>"><?= $self_url ?>?api_key=<?= $api_key ?></a>
                 </div>
             </i>
         </div>
