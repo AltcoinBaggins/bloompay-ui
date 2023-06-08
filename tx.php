@@ -118,8 +118,6 @@
         </div>
 
 
-        <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low! Recommended minimum amount is 0.01 BNB. Please top up.</div> <br />
-
 
         <br /><br />
 
