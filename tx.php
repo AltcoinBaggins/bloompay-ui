@@ -69,9 +69,9 @@
 
 
         Merchant API key <b><?= $api_key ?></b><br />
-        Merchant wallet address: <b data-wallet-address></b>...<br />
-        Available USDS balance: <b data-wallet-usds-balance></b>...<br />
-        BNB gas balance: <b data-wallet-bnb-balance></b>...<br />
+        Merchant wallet address: <b data-wallet-address>...</b><br />
+        Available USDS balance: <b data-wallet-usds-balance>...</b><br />
+        BNB gas balance: <b data-wallet-bnb-balance>...</b><br />
         <br />
 
             <h2>Transactions</h2>
