@@ -177,7 +177,7 @@
             var originalText = element.innerText;
             var loadingText = element.getAttribute('data-loading');
 
-            element.innerText = loadingText;
+            element.innerText = loadingText + ' ...';
             element.setAttribute('disabled', 'disabled');
 
             // Perform any additional actions or API calls here
@@ -186,7 +186,7 @@
             setTimeout(function() {
                 element.innerText = originalText;
                 element.removeAttribute('disabled');
-            }, 2000);
+            }, 30000);
         }
     </script>
 </body>
