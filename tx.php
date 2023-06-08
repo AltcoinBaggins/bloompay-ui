@@ -69,7 +69,7 @@
 
         <div style="float: right;">
             <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=">
-                Wallet import and set-up guide
+                Wallet Import Wizard
             </a>
         </div>
 
