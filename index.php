@@ -158,7 +158,7 @@ ini_set('display_errors', 1);
                     <h5 class="card-title">3.2 Check your Merchant Dashboard</h5>
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
                     <div class="text-center">
-                        <a class="highlight" data-no-copy href="<?= $self_url ?>/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>/tx.php?api_key=<?= $api_key ?></a>
+                        <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>/tx.php?api_key=<?= $api_key ?></a>
                     </div>
                 </div>
             </div>
