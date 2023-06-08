@@ -71,12 +71,16 @@
             <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success" data-loading="Loading Wizard">
                 Wallet Import Wizard
             </a>
+            <br /> <br />
+            <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; float: right;" />
         </div>
+
 
         Merchant API key <b><?= $api_key ?></b><br />
         Merchant wallet address: <b data-wallet-address>...</b><br />
         Available USDS balance: <b data-wallet-usds-balance>...</b><br />
         BNB gas balance: <b data-wallet-bnb-balance>...</b><br />
+
 
         <br /><br />
 
