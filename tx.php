@@ -77,7 +77,7 @@
             </a><br />
 
             <br /> <br />
-            <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; float: right;" />
+            
         </div>
 
 
@@ -86,7 +86,7 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <h5 class="card-title">Merchant API key</h5>
-                        <p class="card-text" style="font-size: 24px;"><b><?= $api_key ?></b></p>
+                        <p class="card-text" style="font-size: 24px;"><b class="highlight"><?= $api_key ?></b></p>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,9 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <h5 class="card-title">Merchant wallet address</h5>
-                        <p class="card-text" style="font-size: 24px;"><b data-wallet-address>...</b></p>
+                        <p class="card-text" style="font-size: 24px;"><b data-wallet-address class="highlight">...</b>
+                            <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; float: right;" />
+                        </p>
                     </div>
                 </div>
             </div>
@@ -326,6 +328,35 @@
             }
         });
     </script>
+    <script>
+    $(document).ready(function(){
+        $(".highlight:not([data-no-copy])").append("<i class='far fa-clipboard fa-lg' style='color: black; margin-left: 10px; cursor: pointer;' data-toggle='tooltip' title='Copy to clipboard'></i>");
 
+        $(document).on('click', '.fa-clipboard', function(){
+            var text = $(this).parent(".highlight").text();
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(text).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            // Show tooltip
+            $(this).attr('title', 'Copied')
+                   .tooltip('_fixTitle')
+                   .tooltip('show')
+                   .attr('title', 'Copy to clipboard')
+                   .tooltip('_fixTitle');
+
+            // Hide tooltip after 3 seconds
+            var _this = this;
+            setTimeout(function(){
+                $(_this).tooltip('hide');
+            }, 3000);
+        });
+
+        // Initialize tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
 </body>
 </html>
