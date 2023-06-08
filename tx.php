@@ -80,6 +80,7 @@
         Merchant wallet address: <b data-wallet-address>...</b><br />
         Available USDS balance: <b data-wallet-usds-balance>...</b><br />
         BNB gas balance: <b data-wallet-bnb-balance>...</b><br />
+        <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low!</div> <br />
 
 
         <br /><br />
@@ -146,11 +147,19 @@
             var walletAddressElement = document.querySelector('[data-wallet-address]');
             var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
             var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
+            var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
+
 
             // Fill elements with values from the response
             walletAddressElement.textContent = response.merchant_address.address;
             walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+            var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
             walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
+            
+            // Show the alert if the BNB balance is less than 0.001
+            if (parseFloat(bnbBalance) < 0.001) {
+                bnbLowBalanceAlertElement.classList.remove('d-none');
+            }
           }
         };
 
