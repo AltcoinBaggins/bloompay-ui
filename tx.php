@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bloompay USDS Gateway Installation Guide</title>
+    <title>Bloompay Merchant Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -37,7 +37,7 @@
     <div class="container my-4"<?php if ($api_key): ?> style="max-width: 100%;"<?php endif; ?>>
 
 
-        <h1 class="mb-5">Bloompay Merchant Payments<!--/h1-->
+        <h1 class="mb-5">Bloompay Merchant Dashboard<!--/h1-->
         <div class="pagelayer-divider-holder">
         <span class="pagelayer-divider-seperator"></span>
         </div></h1>
