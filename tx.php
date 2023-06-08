@@ -68,9 +68,14 @@
         <?php else: ?>
 
         <div style="float: right;">
+           <!-- ... -->
+            <button id="withdrawButton" class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">
+                Withdraw
+            </button>
             <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success" data-loading="Loading Wizard">
-                Wallet Import Wizard
-            </a>
+                Wallet Import
+            </a><br />
+
             <br /> <br />
             <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; float: right;" />
         </div>
@@ -121,6 +126,36 @@
         <?php endif; ?>
     </div>
     
+
+    <!-- Withdraw Modal -->
+    <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw Tokens</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert" id="withdrawAlert" role="alert" style="display: none;"></div>
+                    <form id="withdrawForm">
+                        <div class="form-group">
+                            <label for="recipientAddress">Recipient Address</label>
+                            <input type="text" class="form-control" id="recipientAddress" placeholder="Enter address">
+                            <small id="addressHelp" class="form-text text-muted">
+                                Enter a valid recipient address in the format: 0x096C48E4D7BeA71059AcE1A23F3BccA6489455EE
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Withdraw</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... -->
+
     <!-- Copy to clipboard functionality -->
     <script>
         function copyToClipboard(elementId) {
@@ -202,5 +237,64 @@
             }, 30000);
         }
     </script>
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the form and the alert element
+            var withdrawForm = document.getElementById('withdrawForm');
+            var withdrawAlert = document.getElementById('withdrawAlert');
+
+            // Add event listener to the form submission
+            withdrawForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the recipient address from the input field
+                var recipientAddress = document.getElementById('recipientAddress').value;
+
+                // Validate the recipient address
+                if (!validateAddress(recipientAddress)) {
+                    // Display an error message
+                    withdrawAlert.className = 'alert alert-danger';
+                    withdrawAlert.textContent = 'Invalid recipient address. Please enter a valid Ethereum address.';
+                    withdrawAlert.style.display = 'block';
+                    return;
+                }
+
+                // Show loading message
+                withdrawAlert.className = 'alert alert-info';
+                withdrawAlert.textContent = 'Loading...';
+                withdrawAlert.style.display = 'block';
+
+                // Send an API request to withdraw tokens
+                var url = 'https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/withdraw/' + recipientAddress;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Withdrawal success
+                        withdrawAlert.className = 'alert alert-success';
+                        withdrawAlert.textContent = 'Tokens successfully withdrawn.';
+                    } else {
+                        // Withdrawal error
+                        withdrawAlert.className = 'alert alert-danger';
+                        withdrawAlert.textContent = 'An error occurred while withdrawing tokens.';
+                    }
+                };
+                xhr.onerror = function() {
+                    // Request error
+                    withdrawAlert.className = 'alert alert-danger';
+                    withdrawAlert.textContent = 'Failed to send withdrawal request.';
+                };
+                xhr.send();
+            });
+
+            // Function to validate the Ethereum address format
+            function validateAddress(address) {
+                var addressRegex = /^(0x)?[0-9a-fA-F]{40}$/;
+                return addressRegex.test(address);
+            }
+        });
+    </script>
+
 </body>
 </html>
