@@ -378,7 +378,7 @@
                     text = spanElement.text().trim();
                 }
             }
-
+            console.log('Copied: '+ text);
 
             $("body").append($temp);
             $temp.val(text).select();
