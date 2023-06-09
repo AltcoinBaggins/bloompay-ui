@@ -67,45 +67,47 @@
 
         <?php else: ?>
 
-        <div style="float: right;">
-           <!-- ... -->
-            <button id="withdrawButton" class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">
-                Withdraw
-            </button>
-            <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>&button=" class="btn btn-success" data-loading="Loading Wizard">
-                Export Wallet
-            </a><br />
-
-            <br /> <br />
-            
-        </div>
-
-
         <div class="row mb-4">
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Available USDS balance</h5>
+                        <h5 class="card-title">Available USDS Balance</h5>
                         <p class="card-text" style="font-size: 24px;"><b data-wallet-usds-balance>...</b></p>
+                        <button id="withdrawButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#withdrawModal">
+                            Withdraw
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title">BNB gas balance</h5>
+                        <h5 class="card-title">BNB Gas Balance</h5>
                         <p class="card-text" style="font-size: 24px;"><b data-wallet-bnb-balance>...</b></p>
+                        <button id="topupButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#topupModal">
+                            Topup BNB
+                        </button>
                         <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low! Recommended minimum amount is 0.01 BNB. Please top up.</div>
                     </div>
                 </div>
             </div>
+<?php
+    $completedCount = 0;
+    foreach($transactions as $transaction) {
+        if ($transaction['status'] == 'collected' || $transaction['status'] == 'complete') {
+            $completedCount++;
+        }
+    }
+?>
+
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Merchant wallet address</h5>
-                        <p class="card-text" style="font-size: 24px;"><b data-wallet-address class="highlight">...</b>
-                            <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; float: right;" />
-                        </p>
+                        <h5 class="card-title">Transactions Completed</h5>
+                        <p class="card-text" style="font-size: 24px;"><b data-transaction-completed><?php echo $completedCount; ?></b></p>
+                        <a href="https://bloompay.bloomshares.com/trust.php" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                            Getting Started Guide
+                        </a>
                     </div>
                 </div>
             </div>
@@ -113,7 +115,10 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <h5 class="card-title">Merchant API key</h5>
-                        <p class="card-text" style="font-size: 24px;"><b class="highlight"><?= $api_key ?></b></p>
+                        <p class="card-text" style="font-size: 15px;"><b class="highlight smaller-font"><?= $api_key ?></b></p>
+                        <a href="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                            Backup Wallet
+                        </a>
                     </div>
                 </div>
             </div>
@@ -183,6 +188,32 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Withdraw</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... -->
+
+    <!-- Topup BNB Modal -->
+    <div class="modal fade" id="topupModal" tabindex="-1" role="dialog" aria-labelledby="topupModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="topupModalLabel">Topup BNB</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert" id="topupAlert" role="alert" style="display: none;"></div>
+                    <div class="text-center">
+                        <small id="addressHelp" class="form-text text-muted" style="text-align: left;">
+                            Send BNB to your merchant wallet address:
+                        </small>
+                        <p><b data-wallet-address class="highlight">...</b></p>
+                        <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; margin-top: 10px; float: left;" />
+                    </div>
                 </div>
             </div>
         </div>
