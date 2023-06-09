@@ -366,9 +366,6 @@
 
         $(document).on('click', '.fa-clipboard', function(){
            // var text = $(this).parent(".highlight").text();
-            var $temp = $("<input>");
-
-
             var highlightElement = $(this).parent(".highlight");
             var text = highlightElement.text().trim();
             
@@ -380,7 +377,13 @@
             }
             console.log('Copied: '+ text);
 
-            $("body").append($temp);
+            var $temp = $("<input>");
+            var modal = $(this).closest('.modal');
+            if (modal.length > 0) {
+                modal.find('.modal-body').append($temp);
+            } else {
+                $('body').append($temp);
+            }
             $temp.val(text).select();
             document.execCommand("copy");
             $temp.remove();
