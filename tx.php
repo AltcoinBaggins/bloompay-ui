@@ -365,8 +365,21 @@
         $(".highlight:not([data-no-copy])").append("<i class='far fa-clipboard fa-lg' style='color: black; margin-left: 10px; cursor: pointer;' data-toggle='tooltip' title='Copy to clipboard'></i>");
 
         $(document).on('click', '.fa-clipboard', function(){
-            var text = $(this).parent(".highlight").text();
+           // var text = $(this).parent(".highlight").text();
             var $temp = $("<input>");
+
+
+            var highlightElement = $(this).parent(".highlight");
+            var text = highlightElement.text().trim();
+            
+            if (!text) {
+                var spanElement = highlightElement.find('span:first');
+                if (spanElement.length > 0) {
+                    text = spanElement.text().trim();
+                }
+            }
+
+
             $("body").append($temp);
             $temp.val(text).select();
             document.execCommand("copy");
