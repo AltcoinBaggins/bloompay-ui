@@ -211,7 +211,8 @@
                         <small id="addressHelp" class="form-text text-muted" style="text-align: left;">
                             Send BNB to your merchant wallet address:
                         </small>
-                        <p><b data-wallet-address class="highlight">...</b></p>
+                        <br />
+                        <p><b class="highlight"><span data-wallet-address>...</span></b></p>
                         <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; margin-top: 10px; float: left;" />
                     </div>
                 </div>
