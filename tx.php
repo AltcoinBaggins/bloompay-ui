@@ -264,40 +264,6 @@
             document.body.removeChild(aux);
         }
 
-        var xhr = new XMLHttpRequest();
-        var url = 'https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet';
-        xhr.open('GET', url, true);
-        xhr.responseType = 'json';
-
-        // Set up the onload event handler
-        xhr.onload = function() {
-          // Check if the request was successful
-          if (xhr.status === 200) {
-            var response = xhr.response; // Get the response data
-
-            // Find elements with specific data attributes
-            var walletAddressElement = document.querySelector('[data-wallet-address]');
-            var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
-            var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
-            var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
-
-
-            // Fill elements with values from the response
-            walletAddressElement.textContent = response.merchant_address.address;
-            walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
-            var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
-            walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
-            
-            // Show the alert if the BNB balance is less than 0.001
-            if (parseFloat(bnbBalance) < 0.001) {
-                bnbLowBalanceAlertElement.classList.remove('d-none');
-            }
-          }
-        };
-
-        // Send the request
-        xhr.send();
-
         // Helper function to format value like a Bitcoin price to 8 decimals
         function formatToBitcoinPrice(value) {
           return parseFloat(value).toFixed(8);
@@ -309,6 +275,44 @@
           return decimals.endsWith('.00000000') ? parseInt(decimals) : decimals;
         }
 
+        function refreshBalances() {
+            var xhr = new XMLHttpRequest();
+            var url = 'https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet';
+            xhr.open('GET', url, true);
+            xhr.responseType = 'json';
+
+            // Set up the onload event handler
+            xhr.onload = function() {
+              // Check if the request was successful
+              if (xhr.status === 200) {
+                var response = xhr.response; // Get the response data
+
+                // Find elements with specific data attributes
+                var walletAddressElement = document.querySelector('[data-wallet-address]');
+                var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
+                var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
+                var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
+
+
+                // Fill elements with values from the response
+                walletAddressElement.textContent = response.merchant_address.address;
+                walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+                var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
+                walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
+                
+                // Show the alert if the BNB balance is less than 0.001
+                if (parseFloat(bnbBalance) < 0.001) {
+                    bnbLowBalanceAlertElement.classList.remove('d-none');
+                }
+              }
+            };
+
+            // Send the request
+            xhr.send();
+        }
+
+        refreshBalances();
+        document.setInterval(refreshBalances, 1500);
     </script>
     <script>
         document.addEventListener('click', function(event) {
@@ -324,8 +328,6 @@
 
             element.innerText = loadingText + ' ...';
             element.setAttribute('disabled', 'disabled');
-
-            // Perform any additional actions or API calls here
 
             // Simulating a delay of 2 seconds for demonstration purposes
             setTimeout(function() {
@@ -382,6 +384,7 @@
                         withdrawAlert.className = 'alert alert-danger';
                         withdrawAlert.textContent = 'An error occurred while withdrawing tokens.';
                     }
+                    document.setInterval(refreshBalances, 1000);
                 };
                 xhr.onerror = function() {
                     // Request error
@@ -425,6 +428,7 @@
                         withdrawBNBAlert.textContent = 'There was an issue withdrawing BNB. Please try again later.';
                         withdrawBNBAlert.style.display = 'block';
                     }
+                    document.setInterval(refreshBalances, 1000);
                 };
                 xhr.send();
             });
