@@ -305,19 +305,24 @@
                     needBNBElements.forEach(function(element) {
                         if (parseFloat(bnbBalance) === 0) {
                             element.classList.add('disabled');
+                            element.setAttribute('disabled', ''); // Add the disabled attribute
                             $(element).attr('data-original-title', 'Insufficient BNB balance').tooltip();
                         } else {
                             element.classList.remove('disabled');
+                            element.removeAttribute('disabled'); // Remove the disabled attribute
                             $(element).attr('data-original-title', '').tooltip('dispose');
                         }
                     });
 
+
                     needUSDSElements.forEach(function(element) {
                         if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
                             element.classList.add('disabled');
+                            element.setAttribute('disabled', ''); // Add the disabled attribute
                             $(element).attr('data-original-title', 'Insufficient USDS balance').tooltip();
                         } else {
                             element.classList.remove('disabled');
+                            element.removeAttribute('disabled'); // Remove the disabled attribute
                             $(element).attr('data-original-title', '').tooltip('dispose');
                         }
                     });
