@@ -53,6 +53,6 @@ body, html {
     height: 100%;
 }
 
-.table-yellow {
-  background-color: yellow;
+.card .btn {
+    margin-top: 20px;
 }
