@@ -73,7 +73,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Available USDS Balance</h5>
                         <p class="card-text" style="font-size: 24px;"><b data-wallet-usds-balance>...</b></p>
-                        <button id="withdrawButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#withdrawModal">
+                        <button id="withdrawButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#withdrawModal" data-need-usds>
                             Withdraw
                         </button>
                     </div>
@@ -87,7 +87,7 @@
                         <button id="topupButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#topupModal">
                             Deposit BNB
                         </button>
-                        <button id="withdrawBNBButton" class="btn btn-danger mt-3 ml-2" style="opacity: 0.5;" data-toggle="modal" data-target="#withdrawBNBModal">
+                        <button id="withdrawBNBButton" class="btn btn-danger mt-3 ml-2" style="opacity: 0.5;" data-toggle="modal" data-target="#withdrawBNBModal" data-need-bnb>
                             Withdraw BNB
                         </button>
                         <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low! Recommended minimum amount is 0.01 BNB. Please top up.</div>
