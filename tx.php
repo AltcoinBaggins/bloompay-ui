@@ -322,9 +322,13 @@
                         }
                     });
 
-                    // Show the alert if the BNB balance is less than 0.001
+                    // Check the BNB balance
                     if (parseFloat(bnbBalance) < 0.001) {
+                        // Show the alert if the BNB balance is less than 0.001
                         bnbLowBalanceAlertElement.classList.remove('d-none');
+                    } else {
+                        // Hide the alert if the BNB balance is not less than 0.001
+                        bnbLowBalanceAlertElement.classList.add('d-none');
                     }
                 }
             };
@@ -502,6 +506,24 @@
         // Initialize tooltips
         $('[data-toggle="tooltip"]').tooltip();
     });
+
+
+    // For "disabled" things
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all elements that could be disabled
+        var clickableElements = Array.from(document.querySelectorAll('a, button'));
+
+        clickableElements.forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                // If the element has the 'disabled' class, prevent the default action
+                if (element.classList.contains('disabled')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+
+
     </script>
 </body>
 </html>
