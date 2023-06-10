@@ -312,7 +312,7 @@
         }
 
         refreshBalances();
-        document.setInterval(refreshBalances, 1500);
+        document.setInterval(refreshBalances, 15000);
     </script>
     <script>
         document.addEventListener('click', function(event) {
@@ -384,7 +384,7 @@
                         withdrawAlert.className = 'alert alert-danger';
                         withdrawAlert.textContent = 'An error occurred while withdrawing tokens.';
                     }
-                    document.setInterval(refreshBalances, 1000);
+                    document.setTimeout(refreshBalances, 1000);
                 };
                 xhr.onerror = function() {
                     // Request error
@@ -428,7 +428,7 @@
                         withdrawBNBAlert.textContent = 'There was an issue withdrawing BNB. Please try again later.';
                         withdrawBNBAlert.style.display = 'block';
                     }
-                    document.setInterval(refreshBalances, 1000);
+                    document.setTimeout(refreshBalances, 1000);
                 };
                 xhr.send();
             });
