@@ -283,28 +283,50 @@
 
             // Set up the onload event handler
             xhr.onload = function() {
-              // Check if the request was successful
-              if (xhr.status === 200) {
-                var response = xhr.response; // Get the response data
+                // Check if the request was successful
+                if (xhr.status === 200) {
+                    var response = xhr.response; // Get the response data
 
-                // Find elements with specific data attributes
-                var walletAddressElement = document.querySelector('[data-wallet-address]');
-                var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
-                var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
-                var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
+                    // Find elements with specific data attributes
+                    var walletAddressElement = document.querySelector('[data-wallet-address]');
+                    var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
+                    var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
+                    var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
+                    var needBNBElements = Array.from(document.querySelectorAll('[data-need-bnb]'));
+                    var needUSDSElements = Array.from(document.querySelectorAll('[data-need-usds]'));
 
+                    // Fill elements with values from the response
+                    walletAddressElement.textContent = response.merchant_address.address;
+                    walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+                    var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
+                    walletBNBBalanceElement.textContent = bnbBalance;
 
-                // Fill elements with values from the response
-                walletAddressElement.textContent = response.merchant_address.address;
-                walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
-                var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
-                walletBNBBalanceElement.textContent = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
-                
-                // Show the alert if the BNB balance is less than 0.001
-                if (parseFloat(bnbBalance) < 0.001) {
-                    bnbLowBalanceAlertElement.classList.remove('d-none');
+                    // Disable elements and show tooltips depending on the balance
+                    needBNBElements.forEach(function(element) {
+                        if (parseFloat(bnbBalance) === 0) {
+                            element.classList.add('disabled');
+                            $(element).attr('data-original-title', 'Insufficient BNB balance').tooltip();
+                        } else {
+                            element.classList.remove('disabled');
+                            $(element).attr('data-original-title', '').tooltip('dispose');
+                        }
+                    });
+
+                    needUSDSElements.forEach(function(element) {
+                        if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
+                            element.classList.add('disabled');
+                            $(element).attr('data-original-title', 'Insufficient USDS balance').tooltip();
+                        } else {
+                            element.classList.remove('disabled');
+                            $(element).attr('data-original-title', '').tooltip('dispose');
+                        }
+                    });
+
+                    // Show the alert if the BNB balance is less than 0.001
+                    if (parseFloat(bnbBalance) < 0.001) {
+                        bnbLowBalanceAlertElement.classList.remove('d-none');
+                    }
                 }
-              }
             };
 
             // Send the request

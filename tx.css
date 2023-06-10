@@ -60,3 +60,9 @@ body, html {
 #bnb-low-balance-alert {
     margin-bottom: -25px;
 }
+
+a.disabled {
+    pointer-events: none;
+    color: grey;
+    cursor: not-allowed;
+}
