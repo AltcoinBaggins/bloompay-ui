@@ -107,25 +107,29 @@ ini_set('display_errors', 1);
             </div>
         </div>
         -->
-        <!-- Section 1: Installing BloompayGateway Plugin -->
+        <!-- Section 1: Installing Bloompay USDS Gateway Plugin -->
         <div>
-            <h2>Step 1: Installing the BloompayGateway Plugin</h2>
+            <h2>Step 1: Installing the Bloompay USDS Gateway Plugin</h2>
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">1.1 Install Plugin</h5>
-                    <p>Install the BloompayGateway plugin in your WooCommerce setup. After installation, navigate to the settings of the BloompayGateway plugin by clicking on the <i>WooCommerce
-                       &raquo; Settings</i> in the menu, open <i>Payments tab</i>, click to <i>All payment methods</i>, find BloompayGateway and click <i>Manage</i>.</p>
+                    <p>Install the Bloompay USDS Gateway plugin from <i>WooCommerce
+                       &raquo; Plugins</i> menu, click <i>Add new</i> button on the top, then click to <i>Upload plugin</i>, then upload <a href="https://bloompay.bloomshares.com/bloompay.zip">bloompay.zip</a> archive. Click Install and Activate.</p>
                 </div>
             </div>
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">1.2 Enter API Key</h5>
-                    <p>Enter the following key into the 'API Key' field:</p>
+                    <p>Copy the following API key we have just generated for you:</p>
                     <div class="text-center">
                         <p class="card-text highlight"><?= $api_key ?></p>
                     </div>
+                    <p>Keep it safe, you will also need it to access your Dashboard. Navigate to the settings of the Bloompay USDS Gateway plugin by clicking on the <i>WooCommerce
+                       &raquo; Settings</i> in the menu, open <i>Payments tab</i>, click to <i>All payment methods</i>, find Bloompay USDS Gateway and click <i>Manage</i>. Enter the copied key to the 'API Key' field and press save.
+                    </p>
                 </div>
             </div>
+            <!--
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">1.3 Complete the configuration</h5>
@@ -136,6 +140,7 @@ ini_set('display_errors', 1);
                     <p>Review Title and Description fields which you can customize as required.</p>
                 </div>
             </div>
+            -->
         </div>
 
         <br />
@@ -156,7 +161,7 @@ ini_set('display_errors', 1);
             </div>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">2.2 Check your Merchant Dashboard</h5>
+                    <h5 class="card-title">2.2 Log in to your Merchant Dashboard</h5>
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
                     <div class="text-center">
                         <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
@@ -173,16 +178,12 @@ ini_set('display_errors', 1);
 
         <div class="alert alert-danger" role="alert">
             <i class="glyphicon glyphicon-hourglass"></i>
-            To prevent loss of funds make sure you write down your mnemonic phrase. You can also save direct link to this
-            exact page for your specific API key to easily import the same wallet in the future:<br />
-                <div class="text-center">
-                    <a class="highlight" data-no-copy href="<?= $self_url ?>?api_key=<?= $api_key ?>"><?= $self_url ?>?api_key=<?= $api_key ?></a></br>
-                    <div class="text-center">
-                        Your mnemonic code is :</br>
-                        <p class="card-text highlight"><?= $mnemonic ?></p>
-                    </div><br />
-                </div>
-            </i>
+            To prevent loss of funds make sure you backup your new merchant wallet. This file will also include your API key backup and mnemonic phrase.
+            <div class="text-center">
+                <a href="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                    Backup Wallet
+                </a>
+            </div>
         </div>
 
     </div>
