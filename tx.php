@@ -258,6 +258,10 @@
     </div>
     <!-- ... -->
 
+    <footer>
+      © 2022 - <?php echo date('Y'); ?> Bloomshares Ltd
+    </footer>
+    
     <!-- Copy to clipboard functionality -->
     <script>
         function copyToClipboard(elementId) {
