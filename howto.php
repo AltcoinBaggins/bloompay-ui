@@ -59,6 +59,7 @@ ini_set('display_errors', 1);
         <br /><br /><br />
 
         <!-- Section 1: Importing HD Wallet -->
+        <!--
         <div class="mb-5">
             <h2>Step 1: Importing your Merchant Wallet into TrustWallet</h2>
 
@@ -105,20 +106,20 @@ ini_set('display_errors', 1);
                 </div>
             </div>
         </div>
-
-        <!-- Section 2: Installing BloompayGateway Plugin -->
+        -->
+        <!-- Section 1: Installing BloompayGateway Plugin -->
         <div>
-            <h2>Step 2: Installing the BloompayGateway Plugin</h2>
+            <h2>Step 1: Installing the BloompayGateway Plugin</h2>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">2.1 Install Plugin</h5>
+                    <h5 class="card-title">1.1 Install Plugin</h5>
                     <p>Install the BloompayGateway plugin in your WooCommerce setup. After installation, navigate to the settings of the BloompayGateway plugin by clicking on the <i>WooCommerce
                        &raquo; Settings</i> in the menu, open <i>Payments tab</i>, click to <i>All payment methods</i>, find BloompayGateway and click <i>Manage</i>.</p>
                 </div>
             </div>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">2.2 Enter API Key</h5>
+                    <h5 class="card-title">1.2 Enter API Key</h5>
                     <p>Enter the following key into the 'API Key' field:</p>
                     <div class="text-center">
                         <p class="card-text highlight"><?= $api_key ?></p>
@@ -127,7 +128,7 @@ ini_set('display_errors', 1);
             </div>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">2.3 Complete the configuration</h5>
+                    <h5 class="card-title">1.3 Complete the configuration</h5>
                     <p>Fill in the 'Service URL' field with the following value:</p>
                     <div class="text-center">
                         <p class="card-text highlight"><?= $svc_url ?></p>
@@ -139,12 +140,12 @@ ini_set('display_errors', 1);
 
         <br />
 
-        <!-- Section š: Sending gas -->
+        <!-- Section 2: Sending gas -->
         <div>
-            <h2>Step 3: Top-up BNB for gas</h2>
+            <h2>Step 2: Top-up BNB for gas</h2>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">3.1 Send BNB</h5>
+                    <h5 class="card-title">2.1 Send BNB</h5>
                     <p>In order to automatically transfer payments to your merchant wallet address you will need top it up first with BNB to cover gas transaction fees. Approximately 0.00021 BNB will be spent on each successful USDS payment, so a balance of least 0.01 BNB is recommended.
                     </p>
                     <div class="text-center">
@@ -155,7 +156,7 @@ ini_set('display_errors', 1);
             </div>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">3.2 Check your Merchant Dashboard</h5>
+                    <h5 class="card-title">2.2 Check your Merchant Dashboard</h5>
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
                     <div class="text-center">
                         <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
@@ -175,7 +176,11 @@ ini_set('display_errors', 1);
             To prevent loss of funds make sure you write down your mnemonic phrase. You can also save direct link to this
             exact page for your specific API key to easily import the same wallet in the future:<br />
                 <div class="text-center">
-                    <a class="highlight" data-no-copy href="<?= $self_url ?>?api_key=<?= $api_key ?>"><?= $self_url ?>?api_key=<?= $api_key ?></a>
+                    <a class="highlight" data-no-copy href="<?= $self_url ?>?api_key=<?= $api_key ?>"><?= $self_url ?>?api_key=<?= $api_key ?></a></br>
+                    <div class="text-center">
+                        Your mnemonic code is :</br>
+                        <p class="card-text highlight"><?= $mnemonic ?></p>
+                    </div><br />
                 </div>
             </i>
         </div>
