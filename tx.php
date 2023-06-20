@@ -19,7 +19,7 @@
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
 
-        $svc_url = 'https://bloompay.bloomshares.com:48080';
+        $svc_url = 'https://bloompay.bloomshares.com';
         $self_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
         $api_key = $_GET['api_key'] ?? null;
 
