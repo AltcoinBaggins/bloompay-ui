@@ -112,12 +112,12 @@ ini_set('display_errors', 1);
             <h2>Step 1: Installing the Bloompay USDS Gateway Plugin</h2>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">1.1 Install Plugin</h5>
+                    <h5 class="card-title">1.1 Download and Install the Plugin</h5>
                     <p>
                         <div class="text-center">
                             <a href="bloompay.zip" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
                                 Download Plugin
-                            </a>
+                            </a><br />
                         </div>
                         Download the plugin and install it from <i>WooCommerce
                        &raquo; Plugins</i> menu, click <i>Add new</i> button on the top, then click to <i>Upload plugin</i>, upload the file and click Install, then Activate.</p>
