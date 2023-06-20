@@ -126,7 +126,7 @@ ini_set('display_errors', 1);
                     </div>
                     <br />
                     <p>It will be required to access your Dashboard. Navigate to the settings of the Bloompay USDS Gateway plugin by clicking on the <i>WooCommerce
-                       &raquo; Settings</i> in the menu, open <i>Payments tab</i>, click to <i>All payment methods</i>, find Bloompay USDS Gateway and click <i>Manage</i>. Enter the copied key to the 'API Key' field and press save.
+                       &raquo; Settings</i> in the menu, open <i>Payments tab</i>, click to <i>All payment methods</i>, find Bloompay USDS Gateway and click <i>Manage</i>. Fill it into the 'API Key' field and press save.
                     </p>
                 </div>
             </div>
@@ -152,7 +152,7 @@ ini_set('display_errors', 1);
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">2.1 Send BNB</h5>
-                    <p>In order to automatically transfer payments to your merchant wallet address you will need top up BNB to be used for gas. Approximately 0.00021 BNB will be spent on each successful USDS payment, so a balance of least 0.01 BNB is recommended.
+                    <p>For automatic transfer of payments to your merchant wallet to work you will need send BNB to be used for gas. A balance of least 0.01 BNB is recommended.
                     </p>
                     <div class="text-center">
                         <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
@@ -166,7 +166,10 @@ ini_set('display_errors', 1);
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other information. Use your
                         secret API key to log in to the Dashboard in the future.
                     <div class="text-center">
-                        <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
+                        <a class="highlight" data-no-copy href=""><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
+                        <a href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
+                            Open Dashboard
+                        </a>
                     </div>
                 </div>
             </div>
