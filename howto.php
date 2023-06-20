@@ -113,8 +113,14 @@ ini_set('display_errors', 1);
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">1.1 Install Plugin</h5>
-                    <p>Install the Bloompay USDS Gateway plugin from <i>WooCommerce
-                       &raquo; Plugins</i> menu, click <i>Add new</i> button on the top, then click to <i>Upload plugin</i>, then upload <a href="https://bloompay.bloomshares.com/bloompay.zip">bloompay.zip</a> archive. Click Install and Activate.</p>
+                    <p>
+                        <div class="text-center">
+                            <a href="bloompay.zip" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
+                                Download Plugin
+                            </a>
+                        </div>
+                        Download the plugin and install it from <i>WooCommerce
+                       &raquo; Plugins</i> menu, click <i>Add new</i> button on the top, then click to <i>Upload plugin</i>, upload the file and click Install, then Activate.</p>
                 </div>
             </div>
             <div class="card mb-3">
@@ -166,7 +172,6 @@ ini_set('display_errors', 1);
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other information. Use your
                         secret API key to log in to the Dashboard in the future.
                     <div class="text-center">
-                        <a class="highlight" data-no-copy href=""><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
                         <a href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
                             Open Dashboard
                         </a>
