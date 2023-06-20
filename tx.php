@@ -122,9 +122,11 @@
                         <a href="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
                             Backup Wallet
                         </a>
+                    <!--
                         <a href="trustwallet.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3">
                             Import Wallet
                         </a>
+                    -->
                     </div>
                 </div>
             </div>
