@@ -286,7 +286,7 @@
 
         function refreshBalances() {
             var xhr = new XMLHttpRequest();
-            var url = 'https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet';
+            var url = 'https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet_info';
             xhr.open('GET', url, true);
             xhr.responseType = 'json';
 
