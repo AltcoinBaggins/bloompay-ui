@@ -108,7 +108,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Transactions Completed</h5>
                         <p class="card-text" style="font-size: 24px;"><b data-transaction-completed><?php echo $completedCount; ?></b></p>
-                        <a href="https://bloompay.bloomshares.com/trust.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" data-loading="Loading guide">
+                        <a href="https://bloompay.bloomshares.com/howto.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" data-loading="Loading guide">
                             Getting Started Guide
                         </a>
                     </div>
@@ -121,6 +121,9 @@
                         <p class="card-text" style="font-size: 15px;"><b class="highlight smaller-font"><?= $api_key ?></b></p>
                         <a href="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
                             Backup Wallet
+                        </a>
+                        <a href="trustwallet.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3">
+                            Import Wallet
                         </a>
                     </div>
                 </div>
