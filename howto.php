@@ -120,11 +120,12 @@ ini_set('display_errors', 1);
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">1.2 Enter API Key</h5>
-                    <p>Copy the following API key we have just generated for you:</p>
+                    <p>Write down the following API Key we have just generated for you:</p>
                     <div class="text-center">
                         <p class="card-text highlight"><?= $api_key ?></p>
                     </div>
-                    <p>Keep it safe, you will also need it to access your Dashboard. Navigate to the settings of the Bloompay USDS Gateway plugin by clicking on the <i>WooCommerce
+                    <br />
+                    <p>It will be required to access your Dashboard. Navigate to the settings of the Bloompay USDS Gateway plugin by clicking on the <i>WooCommerce
                        &raquo; Settings</i> in the menu, open <i>Payments tab</i>, click to <i>All payment methods</i>, find Bloompay USDS Gateway and click <i>Manage</i>. Enter the copied key to the 'API Key' field and press save.
                     </p>
                 </div>
@@ -151,7 +152,7 @@ ini_set('display_errors', 1);
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">2.1 Send BNB</h5>
-                    <p>In order to automatically transfer payments to your merchant wallet address you will need top it up first with BNB to cover gas transaction fees. Approximately 0.00021 BNB will be spent on each successful USDS payment, so a balance of least 0.01 BNB is recommended.
+                    <p>In order to automatically transfer payments to your merchant wallet address you will need top up BNB to be used for gas. Approximately 0.00021 BNB will be spent on each successful USDS payment, so a balance of least 0.01 BNB is recommended.
                     </p>
                     <div class="text-center">
                         <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
@@ -162,7 +163,8 @@ ini_set('display_errors', 1);
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">2.2 Log in to your Merchant Dashboard</h5>
-                    <p>Now you can visit your merchant dashboard page to see transaction summary and other infromation. If you are asked for login, enter your merchant API key.
+                    <p>Now you can visit your merchant dashboard page to see transaction summary and other information. Use your
+                        secret API key to log in to the Dashboard in the future.
                     <div class="text-center">
                         <a class="highlight" data-no-copy href="https://bloompay.bloomshares.com/tx.php?api_key=<?= $api_key ?>"><?= $self_url ?>tx.php?api_key=<?= $api_key ?></a>
                     </div>
