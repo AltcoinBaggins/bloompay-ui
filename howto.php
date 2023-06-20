@@ -117,7 +117,7 @@ ini_set('display_errors', 1);
                         <div class="text-center">
                             <a href="bloompay.zip" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
                                 Download Plugin
-                            </a><br />
+                            </a><br /><br />
                         </div>
                         Download the plugin and install it from <i>WooCommerce
                        &raquo; Plugins</i> menu, click <i>Add new</i> button on the top, then click to <i>Upload plugin</i>, upload the file and click Install, then Activate.</p>
