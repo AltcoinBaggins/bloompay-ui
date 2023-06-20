@@ -43,7 +43,7 @@
                         </form>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
-                        <a class="btn login_btn" style="max-width: 200px;" href="trust.php">Sign up</a> <!-- Added button -->
+                        <a class="btn login_btn" style="max-width: 200px;" href="howto.php">Sign up</a> <!-- Added button -->
                     </div>
                     <br />
                 </div>
