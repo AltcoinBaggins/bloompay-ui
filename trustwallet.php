@@ -19,7 +19,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
         $contract = '0x83e6b68028D3F25631B2e60f7023de201c1FE996';
-        $svc_url = 'https://bloompay.bloomshares.com:48080';
+        $svc_url = 'https://bloompay.bloomshares.com';
         $self_url = "https://" . $_SERVER['HTTP_HOST'] . '/';//. $_SERVER['PHP_SELF'];
         $is_new = true;
 
@@ -28,14 +28,14 @@ ini_set('display_errors', 1);
             $is_new = false;
         } else {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://bloompay.bloomshares.com:48080/merchant/new_api_key");
+            curl_setopt($ch, CURLOPT_URL, "https://bloompay.bloomshares.com/merchant/new_api_key");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $api_key = curl_exec($ch);
             curl_close($ch);
         }
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://bloompay.bloomshares.com:48080/merchant/{$api_key}/export_wallet");
+        curl_setopt($ch, CURLOPT_URL, "https://bloompay.bloomshares.com/merchant/{$api_key}/export_wallet");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $wallet = json_decode(curl_exec($ch), true);
         curl_close($ch);
@@ -86,7 +86,7 @@ ini_set('display_errors', 1);
                     <h5 class="card-title">1.3 Insert Mnemonic Phrase</h5>
                     <p>Next, input your Mnemonic Phrase. Either scan the QR code with the top-right button or type in the 24-word phrase below.</p>
                     <div class="text-center">
-                        <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/export_wallet_qr" alt="QR Code" class="img-fluid mb-2">
+                        <img src="https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/export_wallet_qr" alt="QR Code" class="img-fluid mb-2">
                         <p class="card-text highlight"><?= $mnemonic ?></p>
                     </div><br />
                     <p>Double check that scanned mnemonic is the same as the shown above and click 'Import' button.</span></p>
@@ -148,7 +148,7 @@ ini_set('display_errors', 1);
                     <p>In order to automatically transfer payments to your merchant wallet address you will need top it up first with BNB to cover gas transaction fees. Approximately 0.00021 BNB will be spent on each successful USDS payment, so a balance of least 0.01 BNB is recommended.
                     </p>
                     <div class="text-center">
-                        <img src="https://bloompay.bloomshares.com:48080/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
+                        <img src="https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
                         <p class="card-text highlight"><?= $merchant_address ?></p>
                     </div><br />
                 </div>
