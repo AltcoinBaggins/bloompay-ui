@@ -19,7 +19,7 @@
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
 
-        $svc_url = 'https://bloompay.bloomshares.com';
+        $svc_url = 'https://bloompay.co.uk';
         $self_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
         $api_key = $_GET['api_key'] ?? null;
 
@@ -108,7 +108,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Transactions Completed</h5>
                         <p class="card-text" style="font-size: 24px;"><b data-transaction-completed><?php echo $completedCount; ?></b></p>
-                        <a href="https://bloompay.bloomshares.com/howto.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" data-loading="Loading guide">
+                        <a href="https://bloompay.co.uk/howto.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" data-loading="Loading guide">
                             Getting Started Guide
                         </a>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Merchant API key</h5>
                         <p class="card-text" style="font-size: 15px;"><b class="highlight smaller-font"><?= $api_key ?></b></p>
-                        <a href="https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                        <a href="https://bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
                             Backup Wallet
                         </a>
                     <!--
@@ -250,7 +250,7 @@
                         </small>
                         <br />
                         <p><b class="highlight"><span data-wallet-address>...</span></b></p>
-                        <img src="https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; margin-top: 10px; float: left;" />
+                        <img src="https://bloompay.co.uk/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; margin-top: 10px; float: left;" />
                     </div>
                 </div>
             </div>
@@ -286,7 +286,7 @@
 
         function refreshBalances() {
             var xhr = new XMLHttpRequest();
-            var url = 'https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/export_wallet_info';
+            var url = 'https://bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet_info';
             xhr.open('GET', url, true);
             xhr.responseType = 'json';
 
@@ -411,7 +411,7 @@
                 withdrawAlert.style.display = 'block';
 
                 // Send an API request to withdraw tokens
-                var url = 'https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/withdraw/' + recipientAddress;
+                var url = 'https://bloompay.co.uk/merchant/<?= $api_key ?>/withdraw/' + recipientAddress;
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url);
                 xhr.onload = function() {
@@ -455,7 +455,7 @@
                 withdrawBNBAlert.textContent = 'Loading...';
                 withdrawBNBAlert.style.display = 'block';
 
-                var url = 'https://bloompay.bloomshares.com/merchant/<?= $api_key ?>/withdraw_bnb/' + bnbRecipientAddress;
+                var url = 'https://bloompay.co.uk/merchant/<?= $api_key ?>/withdraw_bnb/' + bnbRecipientAddress;
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url);
                 xhr.onload = function() {
