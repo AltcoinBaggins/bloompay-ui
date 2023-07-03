@@ -19,7 +19,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
         $contract = '0x83e6b68028D3F25631B2e60f7023de201c1FE996';
-        $svc_url = 'https://bloompay.co.uk';
+        $svc_url = 'https://merchants.bloompay.co.uk';
         $self_url = "https://" . $_SERVER['HTTP_HOST'] . '/';//. $_SERVER['PHP_SELF'];
         $is_new = true;
 
@@ -28,14 +28,14 @@ ini_set('display_errors', 1);
             $is_new = false;
         } else {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://bloompay.co.uk/merchant/new_api_key");
+            curl_setopt($ch, CURLOPT_URL, "https://merchants.bloompay.co.uk/merchant/new_api_key");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $api_key = curl_exec($ch);
             curl_close($ch);
         }
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://bloompay.co.uk/merchant/{$api_key}/export_wallet");
+        curl_setopt($ch, CURLOPT_URL, "https://merchants.bloompay.co.uk/merchant/{$api_key}/export_wallet");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $wallet = json_decode(curl_exec($ch), true);
         curl_close($ch);
@@ -87,7 +87,7 @@ ini_set('display_errors', 1);
                     <h5 class="card-title">1.3 Insert Mnemonic Phrase</h5>
                     <p>Next, input your Mnemonic Phrase. Either scan the QR code with the top-right button or type in the 24-word phrase below.</p>
                     <div class="text-center">
-                        <img src="https://bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet_qr" alt="QR Code" class="img-fluid mb-2">
+                        <img src="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet_qr" alt="QR Code" class="img-fluid mb-2">
                         <p class="card-text highlight"><?= $mnemonic ?></p>
                     </div><br />
                     <p>Double check that scanned mnemonic is the same as the shown above and click 'Import' button.</span></p>
@@ -161,7 +161,7 @@ ini_set('display_errors', 1);
                     <p>For automatic transfer of payments to your merchant wallet to work you will need send BNB to be used for gas. A balance of least 0.01 BNB is recommended.
                     </p>
                     <div class="text-center">
-                        <img src="https://bloompay.co.uk/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
+                        <img src="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/wallet_address_qr" alt="QR Code" class="img-fluid mb-2">
                         <p class="card-text highlight"><?= $merchant_address ?></p>
                     </div><br />
                 </div>
@@ -172,7 +172,7 @@ ini_set('display_errors', 1);
                     <p>Now you can visit your merchant dashboard page to see transaction summary and other information. Use your
                         secret API key to log in to the Dashboard in the future.
                     <div class="text-center">
-                        <a href="https://bloompay.co.uk/tx.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
+                        <a href="https://merchants.bloompay.co.uk/tx.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" target="_blank">
                             Open Dashboard
                         </a>
                     </div>
@@ -190,7 +190,7 @@ ini_set('display_errors', 1);
             <i class="glyphicon glyphicon-hourglass"></i>
             To prevent loss of funds make sure you backup your new merchant wallet. This file will also include your API key backup and mnemonic phrase.
             <div class="text-center">
-                <a href="https://bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                <a href="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
                     Backup Wallet
                 </a>
             </div>
