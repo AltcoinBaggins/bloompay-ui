@@ -333,7 +333,7 @@
         }
 
         function refreshBalances() {
-            var apiKey = 'G10NLnmbkoCh0GDUW9r9zs6w9WcWv4huuU4AjLPBEbijywZRtrNN1gGpMm';
+            var apiKey = '<?= $api_key ?>';
             var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/export_wallet_info';
             $.getJSON(url, function(response) {
                 // Fill elements with values from the response
@@ -354,15 +354,12 @@
                 if (!$('#bnbAmount').closest('.modal').hasClass('show'))
                     $('#bnbAmount').val(bnbBalance);
 
-                // Check if 2FA is not set up
-                if (!response.has_2fa_secret) {
-                    // Show a warning after the H1 element
-                    $('h1').after('<div class="alert alert-warning" role="alert">You need to set up Google 2FA in order to use the withdraw function. <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#google2FAModal">Set up Google 2FA</button></div>');
-                }
-
                 // Disable elements and show tooltips depending on the balance
                 $('[data-need-bnb]').each(function() {
-                    if (parseFloat(bnbBalance) < 0.001) {
+                    if (!response.has_2fa_secret) {
+                        $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Missing 2FA').tooltip();
+
+                    } else if (parseFloat(bnbBalance) < 0.001) {
                         $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Insufficient BNB balance').tooltip();
                     } else {
                         $(this).removeClass('disabled').removeAttr('disabled').attr('data-original-title', '').tooltip('dispose');
@@ -370,12 +367,23 @@
                 });
 
                 $('[data-need-usds]').each(function() {
-                    if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
+                    if (!response.has_2fa_secret) {
+                        $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Missing 2FA').tooltip();
+
+                    } else if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
                         $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Insufficient USDS balance').tooltip();
                     } else {
                         $(this).removeClass('disabled').removeAttr('disabled').attr('data-original-title', '').tooltip('dispose');
                     }
                 });
+
+                // Check if 2FA is not set up
+                if (!response.has_2fa_secret) {
+                    if (!$('#2faWarning'))
+                        $('h1').after('<div id="2faWarning" class="alert alert-warning" role="alert">You need to set up Google 2FA in order to use the withdraw function. <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#google2FAModal">Set up Google 2FA</button></div>');
+                } else {
+                    $('#2faWarning').remove();
+                }
 
                 // Check the BNB balance
                 if (parseFloat(bnbBalance) < 0.001) {
@@ -617,7 +625,7 @@
 
     // GOOGLE 2FA
     $(document).ready(function() {
-        var apiKey = 'G10NLnmbkoCh0GDUW9r9zs6w9WcWv4huuU4AjLPBEbijywZRtrNN1gGpMm';
+        var apiKey = '<?= $api_key ?>';
         var secret;
 
         $('#google2FAModal').on('show.bs.modal', function() {
