@@ -639,7 +639,7 @@ $(document).on('submit', '#backupWalletForm', function(event) {
         if (data.success) {
             $('#backupWalletAlert').removeClass('alert-info').removeClass('alert-danger').addClass('alert alert-success').text('2FA code validated successfully.');
             $('#backupWalletModal').modal('hide');
-            window.location.href = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/backup_wallet?code=' + backupWalletCode;
+            window.location.href = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/export_wallet?code=' + backupWalletCode;
         } else {
             $('#backupWalletAlert').removeClass('alert-info').addClass('alert alert-danger').text('Invalid 2FA code. Please try again.');
         }
