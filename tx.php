@@ -269,6 +269,43 @@
     </div>
     <!-- ... -->
 
+    <!-- Google 2FA Modal -->
+    <div class="modal fade" id="google2FAModal" tabindex="-1" role="dialog" aria-labelledby="google2FAModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="google2FAModalLabel">Set up Google 2FA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert" id="google2FAAlert" role="alert" style="display: none;"></div>
+                    <div id="google2FASetup">
+                        <div class="text-center">
+                            <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; border: 3px solid black; margin-top: 10px;" />
+                            <p>Scan the QR code with your Google Authenticator app.</p>
+                        </div>
+                        <form id="google2FAForm">
+                            <div class="form-group">
+                                <label for="google2FACode">Enter the 6-digit code from the app:</label>
+                                <input type="text" class="form-control" id="google2FACode" placeholder="Enter 6-digit code">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
+                    </div>
+                    <div id="google2FASuccess" style="display: none;">
+                        <div class="text-center">
+                            <i class="fas fa-check-circle fa-3x text-success"></i>
+                            <p>Google 2FA has been successfully set up.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <footer>
       © 2022 - <?php echo date('Y'); ?> Bloomshares Ltd
     </footer>
@@ -602,6 +639,43 @@
             });
         });
     });
+
+
+    // GOOGLE 2FA
+    $(document).ready(function() {
+        var apiKey = 'G10NLnmbkoCh0GDUW9r9zs6w9WcWv4huuU4AjLPBEbijywZRtrNN1gGpMm';
+        var secret;
+
+        $('#google2FAModal').on('show.bs.modal', function() {
+            var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/generate_2fa';
+            $.getJSON(url, function(data) {
+                secret = data.secret;
+                $('#google2FAQrCode').attr('src', 'https://merchants.bloompay.co.uk/merchant/2fa_qr_code?secret=' + secret);
+            });
+        });
+
+        $('#google2FAForm').on('submit', function(event) {
+            event.preventDefault();
+            var code = $('#google2FACode').val();
+            var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/test_2fa?code=' + code;
+            $.getJSON(url, function(data) {
+                if (data.success) {
+                    var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/set_2fa_confirmed';
+                    $.getJSON(url, function(data) {
+                        if (data.success) {
+                            $('#google2FASetup').hide();
+                            $('#google2FASuccess').show();
+                        } else {
+                            $('#google2FAAlert').addClass('alert alert-danger').text('An error occurred while setting up 2FA.').show();
+                        }
+                    });
+                } else {
+                    $('#google2FAAlert').addClass('alert alert-danger').text('Invalid 2FA code. Please try again.').show();
+                }
+            });
+        });
+    });
+
 
 
     </script>
