@@ -120,9 +120,9 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Merchant API key</h5>
                         <p class="card-text" style="font-size: 15px;"><b class="highlight smaller-font"><?= $api_key ?></b></p>
-                        <a href="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                        <button id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" data-toggle="modal" data-target="#backupWalletModal">
                             Backup Wallet
-                        </a>
+                        </button>
                     <!--
                         <a href="trustwallet.php?api_key=<?= $api_key ?>" id="backupButton" class="btn btn-primary mt-3">
                             Import Wallet
