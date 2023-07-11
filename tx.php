@@ -73,7 +73,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Available USDS Balance</h5>
                         <p class="card-text" style="font-size: 24px;"><b data-wallet-usds-balance>...</b></p>
-                        <button id="withdrawButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#withdrawModal" data-need-usds>
+                        <button id="withdrawButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#withdrawModal" data-need-usds data-need-bnb disabled>
                             Withdraw
                         </button>
                     </div>
@@ -87,10 +87,11 @@
                         <button id="topupButton" class="btn btn-primary mt-3" data-toggle="modal" data-target="#topupModal">
                             Deposit BNB
                         </button>
-                        <button id="withdrawBNBButton" class="btn btn-danger mt-3 ml-2" style="opacity: 0.5;" data-toggle="modal" data-target="#withdrawBNBModal" data-need-bnb>
+                        <button id="withdrawBNBButton" class="btn btn-danger mt-3 ml-2" style="opacity: 0.5;" data-toggle="modal" data-target="#withdrawBNBModal" data-need-bnb disabled>
                             Withdraw BNB
                         </button>
                         <div id="bnb-low-balance-alert" class="alert alert-warning d-none">Warning: BNB balance is low! Recommended minimum amount is 0.01 BNB. Please top up.</div>
+                        <div id="bnb-low-balance-alert2" class="alert alert-warning d-none">Warning: Not enough BNB to cover gas fees, withdrawal is disabled. Minimum amount is 0.001 BNB. Please top up.</div>
                     </div>
                 </div>
             </div>
@@ -311,6 +312,7 @@
                     var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
                     var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
                     var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
+                    var bnbLowBalanceAlertElement2 = document.getElementById('bnb-low-balance-alert2');
                     var needBNBElements = Array.from(document.querySelectorAll('[data-need-bnb]'));
                     var needUSDSElements = Array.from(document.querySelectorAll('[data-need-usds]'));
 
@@ -329,7 +331,7 @@
 
                     // Disable elements and show tooltips depending on the balance
                     needBNBElements.forEach(function(element) {
-                        if (parseFloat(bnbBalance) === 0) {
+                        if (parseFloat(bnbBalance) < 0.001) {
                             element.classList.add('disabled');
                             element.setAttribute('disabled', ''); // Add the disabled attribute
                             $(element).attr('data-original-title', 'Insufficient BNB balance').tooltip();
@@ -355,11 +357,16 @@
 
                     // Check the BNB balance
                     if (parseFloat(bnbBalance) < 0.001) {
+                        bnbLowBalanceAlertElement.classList.add('d-none');
+                        bnbLowBalanceAlertElement2.classList.remove('d-none');
+                    } else if (parseFloat(bnbBalance) < 0.01) {
                         // Show the alert if the BNB balance is less than 0.001
+                        bnbLowBalanceAlertElement2.classList.add('d-none');
                         bnbLowBalanceAlertElement.classList.remove('d-none');
                     } else {
                         // Hide the alert if the BNB balance is not less than 0.001
                         bnbLowBalanceAlertElement.classList.add('d-none');
+                        bnbLowBalanceAlertElement2.classList.add('d-none');
                     }
                 }
             };
