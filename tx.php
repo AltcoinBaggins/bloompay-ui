@@ -333,94 +333,69 @@
         }
 
         function refreshBalances() {
-            var xhr = new XMLHttpRequest();
-            var url = 'https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet_info';
-            xhr.open('GET', url, true);
-            xhr.responseType = 'json';
+            var apiKey = 'G10NLnmbkoCh0GDUW9r9zs6w9WcWv4huuU4AjLPBEbijywZRtrNN1gGpMm';
+            var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/export_wallet_info';
+            $.getJSON(url, function(response) {
+                // Fill elements with values from the response
+                $('[data-wallet-address]').text(response.merchant_address.address);
+                var usdsBalance = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+                $('[data-wallet-usds-balance]').text(usdsBalance);
+                $('#usdsAmount').data('max', usdsBalance);
+                $('.usdsAmount').text(usdsBalance);
 
-            // Set up the onload event handler
-            xhr.onload = function() {
-                // Check if the request was successful
-                if (xhr.status === 200) {
-                    var response = xhr.response; // Get the response data
+                if (!$('#usdsAmount').closest('.modal').hasClass('show'))
+                    $('#usdsAmount').val(usdsBalance);
 
-                    // Find elements with specific data attributes
-                    var walletAddressElement = document.querySelector('[data-wallet-address]');
-                    var walletUSDSBalanceElement = document.querySelector('[data-wallet-usds-balance]');
-                    var walletBNBBalanceElement = document.querySelector('[data-wallet-bnb-balance]');
-                    var bnbLowBalanceAlertElement = document.getElementById('bnb-low-balance-alert');
-                    var bnbLowBalanceAlertElement2 = document.getElementById('bnb-low-balance-alert2');
-                    var needBNBElements = Array.from(document.querySelectorAll('[data-need-bnb]'));
-                    var needUSDSElements = Array.from(document.querySelectorAll('[data-need-usds]'));
+                var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
+                $('[data-wallet-bnb-balance]').text(bnbBalance);
+                $('#bnbAmount').data('max', bnbBalance);
+                $('.bnbAmount').text(bnbBalance);
 
-                    // Fill elements with values from the response
-                    walletAddressElement.textContent = response.merchant_address.address;
-                    var usdsBalance = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
-                    walletUSDSBalanceElement.textContent = usdsBalance;
-                    $('#usdsAmount').data('max', usdsBalance);
-                    $('.usdsAmount').text(usdsBalance);
+                if (!$('#bnbAmount').closest('.modal').hasClass('show'))
+                    $('#bnbAmount').val(bnbBalance);
 
-                    if (!$('#usdsAmount').closest('.modal').hasClass('show'))
-                        $('#usdsAmount').val(usdsBalance);
-
-                    var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
-                    walletBNBBalanceElement.textContent = bnbBalance;
-                    $('#bnbAmount').data('max', bnbBalance);
-                    $('.bnbAmount').text(bnbBalance);
-
-                    if (!$('#bnbAmount').closest('.modal').hasClass('show'))
-                        $('#bnbAmount').val(bnbBalance);
-
-                    // Disable elements and show tooltips depending on the balance
-                    needBNBElements.forEach(function(element) {
-                        if (parseFloat(bnbBalance) < 0.001) {
-                            element.classList.add('disabled');
-                            element.setAttribute('disabled', ''); // Add the disabled attribute
-                            $(element).attr('data-original-title', 'Insufficient BNB balance').tooltip();
-                        } else {
-                            element.classList.remove('disabled');
-                            element.removeAttribute('disabled'); // Remove the disabled attribute
-                            $(element).attr('data-original-title', '').tooltip('dispose');
-                        }
-                    });
-
-
-                    needUSDSElements.forEach(function(element) {
-                        if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
-                            element.classList.add('disabled');
-                            element.setAttribute('disabled', ''); // Add the disabled attribute
-                            $(element).attr('data-original-title', 'Insufficient USDS balance').tooltip();
-                        } else {
-                            element.classList.remove('disabled');
-                            element.removeAttribute('disabled'); // Remove the disabled attribute
-                            $(element).attr('data-original-title', '').tooltip('dispose');
-                        }
-                    });
-
-                    // Check the BNB balance
-                    if (parseFloat(bnbBalance) < 0.001) {
-                        bnbLowBalanceAlertElement.classList.add('d-none');
-                        bnbLowBalanceAlertElement2.classList.remove('d-none');
-                    } else if (parseFloat(bnbBalance) < 0.01) {
-                        // Show the alert if the BNB balance is less than 0.001
-                        bnbLowBalanceAlertElement2.classList.add('d-none');
-                        bnbLowBalanceAlertElement.classList.remove('d-none');
-                    } else {
-                        // Hide the alert if the BNB balance is not less than 0.001
-                        bnbLowBalanceAlertElement.classList.add('d-none');
-                        bnbLowBalanceAlertElement2.classList.add('d-none');
-                    }
+                // Check if 2FA is not set up
+                if (!response.has_2fa_secret) {
+                    // Show a warning after the H1 element
+                    $('h1').after('<div class="alert alert-warning" role="alert">You need to set up Google 2FA in order to use the withdraw function. <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#google2FAModal">Set up Google 2FA</button></div>');
                 }
-            };
 
-            // Send the request
-            xhr.send();
+                // Disable elements and show tooltips depending on the balance
+                $('[data-need-bnb]').each(function() {
+                    if (parseFloat(bnbBalance) < 0.001) {
+                        $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Insufficient BNB balance').tooltip();
+                    } else {
+                        $(this).removeClass('disabled').removeAttr('disabled').attr('data-original-title', '').tooltip('dispose');
+                    }
+                });
+
+                $('[data-need-usds]').each(function() {
+                    if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
+                        $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Insufficient USDS balance').tooltip();
+                    } else {
+                        $(this).removeClass('disabled').removeAttr('disabled').attr('data-original-title', '').tooltip('dispose');
+                    }
+                });
+
+                // Check the BNB balance
+                if (parseFloat(bnbBalance) < 0.001) {
+                    $('#bnb-low-balance-alert').addClass('d-none');
+                    $('#bnb-low-balance-alert2').removeClass('d-none');
+                } else if (parseFloat(bnbBalance) < 0.01) {
+                    // Show the alert if the BNB balance is less than 0.001
+                    $('#bnb-low-balance-alert2').addClass('d-none');
+                    $('#bnb-low-balance-alert').removeClass('d-none');
+                } else {
+                    // Hide the alert if the BNB balance is not less than 0.001
+                    $('#bnb-low-balance-alert').addClass('d-none');
+                    $('#bnb-low-balance-alert2').addClass('d-none');
+                }
+            });
         }
 
         refreshBalances();
         setInterval(refreshBalances, 15000);
-    </script>
-    <script>
+
         document.addEventListener('click', function(event) {
             var target = event.target;
             if (target.matches('[data-loading]')) {
@@ -441,8 +416,7 @@
                 element.removeAttribute('disabled');
             }, 30000);
         }
-    </script>
-    <script>
+
         // Function to validate the Ethereum address format
         function validateAddress(address) {
             var addressRegex = /^(0x)?[0-9a-fA-F]{40}$/;
