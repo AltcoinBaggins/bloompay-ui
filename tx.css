@@ -70,3 +70,8 @@ a.disabled {
 .container {
     min-height: 100vh;
 }
+
+#bnb-low-balance-alert,
+#bnb-low-balance-alert2 {
+    margin-bottom: 0;
+}

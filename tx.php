@@ -320,14 +320,19 @@
                     walletAddressElement.textContent = response.merchant_address.address;
                     var usdsBalance = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
                     walletUSDSBalanceElement.textContent = usdsBalance;
-                    $('#usdsAmount').val(usdsBalance);
                     $('#usdsAmount').data('max', usdsBalance);
                     $('.usdsAmount').text(usdsBalance);
+
+                    if (!$('#usdsAmount').closest('.modal').hasClass('show'))
+                        $('#usdsAmount').val(usdsBalance);
+
                     var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
                     walletBNBBalanceElement.textContent = bnbBalance;
-                    $('#bnbAmount').val(bnbBalance);
                     $('#bnbAmount').data('max', bnbBalance);
                     $('.bnbAmount').text(bnbBalance);
+
+                    if (!$('#bnbAmount').closest('.modal').hasClass('show'))
+                        $('#bnbAmount').val(bnbBalance);
 
                     // Disable elements and show tooltips depending on the balance
                     needBNBElements.forEach(function(element) {
