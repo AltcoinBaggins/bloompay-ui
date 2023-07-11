@@ -480,7 +480,7 @@ $(document).ready(function() {
         var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/withdraw/' + recipientAddress + '/' + usdsAmount + '?code=' + usdsCode;
         $.getJSON(url, function(data) {
             if (data.success) {
-                $('#withdrawAlert').removeClass('alert-info').addClass('alert alert-success').text('Tokens successfully withdrawn.');
+                $('#withdrawAlert').removeClass('alert-info').removeClass('alert-danger').addClass('alert alert-success').text('Tokens successfully withdrawn.');
             } else {
                 var errorMsg = data.message ? data.message : 'An error occurred while withdrawing tokens.';
                 $('#withdrawAlert').removeClass('alert-info').addClass('alert alert-danger').text(errorMsg);
@@ -523,7 +523,7 @@ $(document).ready(function() {
         var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/withdraw_bnb/' + bnbRecipientAddress + '/' + bnbAmount + '?code=' + bnbCode;
         $.getJSON(url, function(data) {
             if (data.success) {
-                $('#withdrawBNBAlert').removeClass('alert-info').addClass('alert alert-success').text('Successfully withdrawn BNB. Check your wallet.');
+                $('#withdrawBNBAlert').removeClass('alert-info').removeClass('alert-danger').addClass('alert alert-success').text('Successfully withdrawn BNB. Check your wallet.');
             } else {
                 var errorMsg = data.message ? data.message : 'There was an issue withdrawing BNB. Please try again later.';
                 $('#withdrawBNBAlert').removeClass('alert-info').addClass('alert alert-danger').text(errorMsg);
