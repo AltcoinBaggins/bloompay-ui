@@ -282,16 +282,22 @@
                 <div class="modal-body">
                     <div class="alert" id="google2FAAlert" role="alert" style="display: none;"></div>
                     <div id="google2FASetup">
+                        <p>Scan the QR code with your Google Authenticator app:</p>
                         <div class="text-center">
-                            <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; border: 3px solid black; margin-top: 10px;" />
-                            <p>Scan the QR code with your Google Authenticator app.</p>
+                            <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; margin-top: 10px;" />
                         </div>
                         <form id="google2FAForm">
-                            <div class="form-group">
-                                <label for="google2FACode">Enter the 6-digit code from the app:</label>
-                                <input type="text" class="form-control" id="google2FACode" placeholder="Enter 6-digit code">
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="google2FACode">Enter the 6-digit code from the app:</label>
+                                        <input type="text" class="form-control form-control-lg" id="google2FACode" placeholder="Enter 6-digit code">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary btn-lg">Confirm</button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
                         </form>
                     </div>
                     <div id="google2FASuccess" style="display: none;">
@@ -304,6 +310,7 @@
             </div>
         </div>
     </div>
+
 
 
     <footer>
