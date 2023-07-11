@@ -284,7 +284,7 @@
                     <div id="google2FASetup">
                         <p>Scan the QR code with your Google Authenticator app:</p>
                         <div class="text-center">
-                            <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; margin-top: 10px;" />
+                            <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; margin: 10px auto 30px;;" />
                         </div>
                         <form id="google2FAForm">
                             <label for="google2FACode">Enter the 6-digit code from the app:</label><br />
