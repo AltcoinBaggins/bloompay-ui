@@ -654,12 +654,16 @@
                     $.getJSON(url, function(data) {
                         if (data.success) {
                             $('#google2FASetup').hide();
+                            $('#google2FAAlert').hide();
                             $('#google2FASuccess').show();
+                            refreshBalances();
                         } else {
+                            $('#google2FAAlert').show();
                             $('#google2FAAlert').addClass('alert alert-danger').text('An error occurred while setting up 2FA.').show();
                         }
                     });
                 } else {
+                    $('#google2FAAlert').show();
                     $('#google2FAAlert').addClass('alert alert-danger').text('Invalid 2FA code. Please try again.').show();
                 }
             });
