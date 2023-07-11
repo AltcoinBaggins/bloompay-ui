@@ -287,15 +287,15 @@
                             <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; margin-top: 10px;" />
                         </div>
                         <form id="google2FAForm">
+                            <label for="google2FACode">Enter the 6-digit code from the app:</label><br />
                             <div class="form-row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="google2FACode">Enter the 6-digit code from the app:</label>
                                         <input type="text" class="form-control form-control-lg" id="google2FACode" placeholder="Enter 6-digit code">
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary btn-lg">Confirm</button>
+                                    <button type="submit" class="btn btn-primary btn-lg"style="margin-top: 0px; width: 100%;">Confirm</button>
                                 </div>
                             </div>
                         </form>
