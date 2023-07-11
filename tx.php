@@ -191,7 +191,12 @@
                             <label for="recipientAddress">Recipient Address</label>
                             <input type="text" class="form-control" id="recipientAddress" placeholder="Enter address">
                             <small id="addressHelp" class="form-text text-muted">
-                                Enter a valid BNB Smart Chain address in the format: 0x096C48E4D7BeA71059AcE1A23F3BccA6489455EE
+                                Enter a valid USDS address in the format: 0x096C48E4D7BeA71059AcE1A23F3BccA6489455EE
+                            </small>
+                            <label for="usdsAmount">Amount</label>
+                            <input type="text" class="form-control" id="usdsAmount" placeholder="Enter amount">
+                            <small id="usdsAmountHelp" class="form-text text-muted">
+                                Maximum Amount: <span class="usdsAmount"></span>
                             </small>
                         </div>
                         <button type="submit" class="btn btn-primary">Withdraw</button>
@@ -221,6 +226,11 @@
                             <input type="text" class="form-control" id="bnbRecipientAddress" placeholder="Enter address">
                             <small id="addressHelp" class="form-text text-muted">
                                 Enter a valid BNB Smart Chain address in the format: 0x096C48E4D7BeA71059AcE1A23F3BccA6489455EE
+                            </small>
+                            <label for="bnbAmount">Amount</label>
+                            <input type="text" class="form-control" id="bnbAmount" placeholder="Enter amount">
+                            <small id="bnbAmountHelp" class="form-text text-muted">
+                                Maximum Amount: <span class="bnbAmount"></span>
                             </small>
                         </div>
                         <button type="submit" class="btn btn-primary">Withdraw</button>
@@ -306,9 +316,16 @@
 
                     // Fill elements with values from the response
                     walletAddressElement.textContent = response.merchant_address.address;
-                    walletUSDSBalanceElement.textContent = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+                    var usdsBalance = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+                    walletUSDSBalanceElement.textContent = usdsBalance;
+                    $('#usdsAmount').val(usdsBalance);
+                    $('#usdsAmount').data('max', usdsBalance);
+                    $('.usdsAmount').text(usdsBalance);
                     var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
                     walletBNBBalanceElement.textContent = bnbBalance;
+                    $('#bnbAmount').val(bnbBalance);
+                    $('#bnbAmount').data('max', bnbBalance);
+                    $('.bnbAmount').text(bnbBalance);
 
                     // Disable elements and show tooltips depending on the balance
                     needBNBElements.forEach(function(element) {
@@ -395,6 +412,7 @@
 
                 // Get the recipient address from the input field
                 var recipientAddress = document.getElementById('recipientAddress').value;
+                var usdsAmount = document.getElementById('usdsAmount').value;
 
                 // Validate the recipient address
                 if (!validateAddress(recipientAddress)) {
@@ -405,13 +423,28 @@
                     return;
                 }
 
+                if (usdsAmount == '') {
+                    withdrawAlert.className = 'alert alert-danger';
+                    withdrawAlert.textContent = 'Please enter valid amount.';
+                    withdrawAlert.style.display = 'block';
+                    return;
+                }
+
+                if (Number(usdsAmount) > Number($('#usdsAmount').data('max'))) {
+                    // Display an error message
+                    withdrawAlert.className = 'alert alert-danger';
+                    withdrawAlert.textContent = 'Not enough balance.';
+                    withdrawAlert.style.display = 'block';
+                    return;
+                }
+
                 // Show loading message
                 withdrawAlert.className = 'alert alert-info';
                 withdrawAlert.textContent = 'Loading...';
                 withdrawAlert.style.display = 'block';
 
                 // Send an API request to withdraw tokens
-                var url = 'https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/withdraw/' + recipientAddress;
+                var url = 'https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/withdraw/' + recipientAddress + '/' + usdsAmount;
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url);
                 xhr.onload = function() {
@@ -443,6 +476,7 @@
             withdrawBNBForm.addEventListener('submit', function(event) {
                 event.preventDefault(); 
                 var bnbRecipientAddress = document.getElementById('bnbRecipientAddress').value;
+                var bnbAmount = document.getElementById('bnbAmount').value;
 
                 if (!validateAddress(bnbRecipientAddress)) {
                     withdrawBNBAlert.className = 'alert alert-danger';
@@ -451,11 +485,26 @@
                     return;
                 }
 
+                if (bnbAmount == '') {
+                    withdrawBNBAlert.className = 'alert alert-danger';
+                    withdrawBNBAlert.textContent = 'Please enter valid amount.';
+                    withdrawBNBAlert.style.display = 'block';
+                    return;
+                }
+
+                if (Number(bnbAmount) > Number($('#bnbAmount').data('max'))) {
+                    // Display an error message
+                    withdrawBNBAlert.className = 'alert alert-danger';
+                    withdrawBNBAlert.textContent = 'Not enough balance.';
+                    withdrawBNBAlert.style.display = 'block';
+                    return;
+                }
+
                 withdrawBNBAlert.className = 'alert alert-info';
                 withdrawBNBAlert.textContent = 'Loading...';
                 withdrawBNBAlert.style.display = 'block';
 
-                var url = 'https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/withdraw_bnb/' + bnbRecipientAddress;
+                var url = 'https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/withdraw_bnb/' + bnbRecipientAddress + '/' + bnbAmount;
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', url);
                 xhr.onload = function() {
@@ -469,6 +518,11 @@
                         withdrawBNBAlert.style.display = 'block';
                     }
                     setTimeout(refreshBalances, 1000);
+                };
+                xhr.onerror = function() {
+                    // Request error
+                    withdrawBNBAlert.className = 'alert alert-danger';
+                    withdrawBNBAlert.textContent = 'Failed to send withdrawal request.';
                 };
                 xhr.send();
             });
