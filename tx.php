@@ -379,7 +379,7 @@
 
                 // Check if 2FA is not set up
                 if (!response.has_2fa_secret) {
-                    if (!$('#2faWarning'))
+                    if (!$('#2faWarning')[0])
                         $('h1').after('<div id="2faWarning" class="alert alert-warning" role="alert">You need to set up Google 2FA in order to use the withdraw function. <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#google2FAModal">Set up Google 2FA</button></div>');
                 } else {
                     $('#2faWarning').remove();
