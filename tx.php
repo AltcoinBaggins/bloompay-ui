@@ -634,12 +634,13 @@
     $(document).ready(function() {
         var apiKey = '<?= $api_key ?>';
         var secret;
+        var label = 'merchant ' + apiKey.substring(0, 4) + '-' + apiKey.substring(apiKey.length - 4);
 
         $('#google2FAModal').on('show.bs.modal', function() {
             var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/generate_2fa';
             $.getJSON(url, function(data) {
                 secret = data.secret;
-                $('#google2FAQrCode').attr('src', 'https://merchants.bloompay.co.uk/merchant/2fa_qr_code?secret=' + secret);
+                $('#google2FAQrCode').attr('src', 'https://merchants.bloompay.co.uk/merchant/2fa_qr_code?secret=' + secret + '&label=' + encodeURIComponent(label));
             });
         });
 
@@ -664,6 +665,7 @@
             });
         });
     });
+
 
 
 
