@@ -235,7 +235,7 @@
                             <label for="bnbAmount">Amount</label>
                             <input type="text" class="form-control" id="bnbAmount" placeholder="Enter amount">
                             <small id="bnbAmountHelp" class="form-text text-muted">
-                                Maximum Amount: <span class="bnbAmount"></span>
+                                Maximum Amount: <a href="javascript:void(0);" class="bnbAmount" onclick="fillBnbAmount()">0.0001</a>
                                 <br><br>
                             </small>
                             <label for="bnbCode">Google 2FA Code</label>
@@ -380,16 +380,16 @@ function refreshBalances() {
         $('#usdsAmount').data('max', usdsBalance);
         $('.usdsAmount').text(usdsBalance);
 
-        if (!$('#usdsAmount').closest('.modal').hasClass('show'))
-            $('#usdsAmount').val(usdsBalance);
+        //if (!$('#usdsAmount').closest('.modal').hasClass('show'))
+        //    $('#usdsAmount').val(usdsBalance);
 
         var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
         $('[data-wallet-bnb-balance]').text(bnbBalance);
         $('#bnbAmount').data('max', bnbBalance);
         $('.bnbAmount').text(bnbBalance);
 
-        if (!$('#bnbAmount').closest('.modal').hasClass('show'))
-            $('#bnbAmount').val(bnbBalance);
+        //if (!$('#bnbAmount').closest('.modal').hasClass('show'))
+        //    $('#bnbAmount').val(bnbBalance);
 
         // Disable elements and show tooltips depending on the balance
         $('[data-need-bnb]').each(function() {
@@ -692,6 +692,13 @@ function fillUsdsAmount() {
     var spanAmount = document.querySelector(".usdsAmount");
 
     usdsAmount.value = spanAmount.innerText;
+}
+
+function fillBnbAmount() {
+    var bnbAmount = document.getElementById("bnbAmount");
+    var spanAmount = document.querySelector(".bnbAmount");
+
+    bnbAmount.value = spanAmount.innerText;
 }
 
     </script>
