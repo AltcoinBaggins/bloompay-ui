@@ -368,78 +368,138 @@ function formatToEthereumBNBPrice(value) {
   var decimals = parseFloat(value).toFixed(8);
   return decimals.endsWith('.00000000') ? parseInt(decimals) : decimals;
 }
-
 function refreshBalances() {
-    var apiKey = '<?= $api_key ?>';
-    var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/export_wallet_info';
-    $.getJSON(url, function(response) {
-        // Fill elements with values from the response
-        $('[data-wallet-address]').text(response.merchant_address.address);
-        var usdsBalance = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
-        $('[data-wallet-usds-balance]').text(usdsBalance);
-        $('#usdsAmount').data('max', usdsBalance);
-        $('.usdsAmount').text(usdsBalance);
+  // Check if a request is already in progress
+  if (refreshBalances.requestInProgress) {
+    console.log('A request is already in progress. Please wait.');
+    return;
+  }
 
-        //if (!$('#usdsAmount').closest('.modal').hasClass('show'))
-        //    $('#usdsAmount').val(usdsBalance);
+  // Set the request status to indicate that a request is in progress
+  refreshBalances.requestInProgress = true;
 
-        var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
-        $('[data-wallet-bnb-balance]').text(bnbBalance);
-        $('#bnbAmount').data('max', bnbBalance);
-        $('.bnbAmount').text(bnbBalance);
+  var apiKey = '<?= $api_key ?>';
+  var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/export_wallet_info';
 
-        //if (!$('#bnbAmount').closest('.modal').hasClass('show'))
-        //    $('#bnbAmount').val(bnbBalance);
+  // Create a promise to handle the AJAX request
+  var ajaxPromise = new Promise(function (resolve, reject) {
+    $.ajax({
+      url: url,
+      method: 'GET',
+      timeout: 60000, // Set the timeout to 60 seconds (60000 milliseconds)
+      success: resolve,
+      error: reject,
+    });
+  });
 
-        // Disable elements and show tooltips depending on the balance
-        $('[data-need-bnb]').each(function() {
-            if (!response.has_2fa_secret) {
-                $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Missing 2FA').tooltip();
+  ajaxPromise
+    .then(function (response) {
+      // Fill elements with values from the response
+      $('[data-wallet-address]').text(response.merchant_address.address);
+      var usdsBalance = formatToBitcoinPrice(response.merchant_address.last_usds_balance);
+      $('[data-wallet-usds-balance]').text(usdsBalance);
+      $('#usdsAmount').data('max', usdsBalance);
+      $('.usdsAmount').text(usdsBalance);
 
-            } else if (parseFloat(bnbBalance) < 0.001) {
-                $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Insufficient BNB balance').tooltip();
-            } else {
-                $(this).removeClass('disabled').removeAttr('disabled').attr('data-original-title', '').tooltip('dispose');
-            }
-        });
+      //if (!$('#usdsAmount').closest('.modal').hasClass('show'))
+      //    $('#usdsAmount').val(usdsBalance);
 
-        $('[data-need-usds]').each(function() {
-            if (!response.has_2fa_secret) {
-                $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Missing 2FA').tooltip();
+      var bnbBalance = formatToEthereumBNBPrice(response.merchant_address.last_bnb_balance);
+      $('[data-wallet-bnb-balance]').text(bnbBalance);
+      $('#bnbAmount').data('max', bnbBalance);
+      $('.bnbAmount').text(bnbBalance);
 
-            } else if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
-                $(this).addClass('disabled').attr('disabled', '').attr('data-original-title', 'Insufficient USDS balance').tooltip();
-            } else {
-                $(this).removeClass('disabled').removeAttr('disabled').attr('data-original-title', '').tooltip('dispose');
-            }
-        });
+      //if (!$('#bnbAmount').closest('.modal').hasClass('show'))
+      //    $('#bnbAmount').val(bnbBalance);
 
-        // Check if 2FA is not set up
+      // Disable elements and show tooltips depending on the balance
+      $('[data-need-bnb]').each(function () {
         if (!response.has_2fa_secret) {
-            if (!$('#2faWarning')[0])
-                $('h1').after('<div id="2faWarning" class="alert alert-warning" role="alert">You need to set up Google 2FA in order to use the withdraw function. <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#google2FAModal">Set up Google 2FA</button></div>');
+          $(this)
+            .addClass('disabled')
+            .attr('disabled', '')
+            .attr('data-original-title', 'Missing 2FA')
+            .tooltip();
+        } else if (parseFloat(bnbBalance) < 0.001) {
+          $(this)
+            .addClass('disabled')
+            .attr('disabled', '')
+            .attr('data-original-title', 'Insufficient BNB balance')
+            .tooltip();
         } else {
-            $('#2faWarning').remove();
+          $(this)
+            .removeClass('disabled')
+            .removeAttr('disabled')
+            .attr('data-original-title', '')
+            .tooltip('dispose');
         }
+      });
 
-        // Check the BNB balance
-        if (parseFloat(bnbBalance) < 0.001) {
-            $('#bnb-low-balance-alert').addClass('d-none');
-            $('#bnb-low-balance-alert2').removeClass('d-none');
-        } else if (parseFloat(bnbBalance) < 0.01) {
-            // Show the alert if the BNB balance is less than 0.001
-            $('#bnb-low-balance-alert2').addClass('d-none');
-            $('#bnb-low-balance-alert').removeClass('d-none');
+      $('[data-need-usds]').each(function () {
+        if (!response.has_2fa_secret) {
+          $(this)
+            .addClass('disabled')
+            .attr('disabled', '')
+            .attr('data-original-title', 'Missing 2FA')
+            .tooltip();
+        } else if (parseFloat(response.merchant_address.last_usds_balance) === 0) {
+          $(this)
+            .addClass('disabled')
+            .attr('disabled', '')
+            .attr('data-original-title', 'Insufficient USDS balance')
+            .tooltip();
         } else {
-            // Hide the alert if the BNB balance is not less than 0.001
-            $('#bnb-low-balance-alert').addClass('d-none');
-            $('#bnb-low-balance-alert2').addClass('d-none');
+          $(this)
+            .removeClass('disabled')
+            .removeAttr('disabled')
+            .attr('data-original-title', '')
+            .tooltip('dispose');
         }
+      });
+
+      // Check if 2FA is not set up
+      if (!response.has_2fa_secret) {
+        if (!$('#2faWarning')[0])
+          $('h1').after(
+            '<div id="2faWarning" class="alert alert-warning" role="alert">You need to set up Google 2FA in order to use the withdraw function. <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#google2FAModal">Set up Google 2FA</button></div>'
+          );
+      } else {
+        $('#2faWarning').remove();
+      }
+
+      // Check the BNB balance
+      if (parseFloat(bnbBalance) < 0.001) {
+        $('#bnb-low-balance-alert').addClass('d-none');
+        $('#bnb-low-balance-alert2').removeClass('d-none');
+      } else if (parseFloat(bnbBalance) < 0.01) {
+        // Show the alert if the BNB balance is less than 0.001
+        $('#bnb-low-balance-alert2').addClass('d-none');
+        $('#bnb-low-balance-alert').removeClass('d-none');
+      } else {
+        // Hide the alert if the BNB balance is not less than 0.001
+        $('#bnb-low-balance-alert').addClass('d-none');
+        $('#bnb-low-balance-alert2').addClass('d-none');
+      }
+
+      // Reset the request status after the request is complete
+      refreshBalances.requestInProgress = false;
+    })
+    .catch(function (error) {
+      // Handle the failed response
+      console.log('AJAX request failed:', error);
+
+      // Reset the request status after the request is complete
+      refreshBalances.requestInProgress = false;
     });
 }
 
+// Initialize the requestInProgress property
+refreshBalances.requestInProgress = false;
+
+// Example usage
 refreshBalances();
 setInterval(refreshBalances, 15000);
+
 
 document.addEventListener('click', function(event) {
     var target = event.target;
