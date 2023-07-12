@@ -41,6 +41,11 @@
                                 <button type="submit" name="button" class="btn login_btn">Login</button>
                             </div>
                         </form>
+                        <?php
+                            if (isset($_GET['a']) && $_GET['a'] === 'ik') {
+                                echo '<div class="alert alert-warning mt-3">Invalid API key</div>';
+                            }
+                        ?>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <a class="btn login_btn" style="max-width: 200px;" href="howto.php">Sign up</a> <!-- Added button -->
