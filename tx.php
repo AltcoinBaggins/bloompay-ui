@@ -29,7 +29,7 @@
     }
 
     // Validate the API key
-    if (!preg_match('/^G\d{2}[a-zA-Z0-9]{56}$/', $api_key)) {
+    if (!preg_match('/^G\d{2}[a-zA-Z0-9]{55}$/', $api_key)) {
         header('Location: /?a=ik');
         exit();
     }
