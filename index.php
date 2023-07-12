@@ -29,6 +29,11 @@
             <div class="d-flex justify-content-center h-100">
                 <div class="user_card">
                     <h3 class="text-center">Merchant Login</h3> <!-- Added title -->
+                    <?php
+                        if (isset($_GET['a']) && $_GET['a'] === 'ik') {
+                            echo '<div class="alert alert-warning mt-3">Invalid API key</div>';
+                        }
+                    ?>
                     <div class="d-flex justify-content-center form_container">
                         <form action="tx.php" method="get">
                             <div class="input-group mb-3">
@@ -41,11 +46,6 @@
                                 <button type="submit" name="button" class="btn login_btn">Login</button>
                             </div>
                         </form>
-                        <?php
-                            if (isset($_GET['a']) && $_GET['a'] === 'ik') {
-                                echo '<div class="alert alert-warning mt-3">Invalid API key</div>';
-                            }
-                        ?>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <a class="btn login_btn" style="max-width: 200px;" href="howto.php">Sign up</a> <!-- Added button -->
