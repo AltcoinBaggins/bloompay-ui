@@ -198,7 +198,7 @@
                             <label for="usdsAmount">Amount</label>
                             <input type="text" class="form-control" id="usdsAmount" placeholder="Enter amount">
                             <small id="usdsAmountHelp" class="form-text text-muted">
-                                Maximum Amount: <span class="usdsAmount"></span>
+                                Maximum Amount:  <a href="javascript:void(0);" class="usdsAmount" onclick="fillUsdsAmount()">0.0001</a>
                                 <br><br>
                             </small>
                             <label for="usdsCode">Google 2FA Code</label>
@@ -686,6 +686,13 @@ $(document).ready(function() {
         });
     });
 });
+
+function fillUsdsAmount() {
+    var usdsAmount = document.getElementById("usdsAmount");
+    var spanAmount = document.querySelector(".usdsAmount");
+
+    usdsAmount.value = spanAmount.innerText;
+}
 
     </script>
 </body>
