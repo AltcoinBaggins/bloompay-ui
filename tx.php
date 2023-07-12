@@ -15,25 +15,35 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <?php
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
+<?php
+    error_reporting(0);
+    ini_set('display_errors', 0);
 
-        $svc_url = 'https://merchants.bloompay.co.uk';
-        $self_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-        $api_key = $_GET['api_key'] ?? null;
+    $svc_url = 'https://merchants.bloompay.co.uk';
+    $self_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+    $api_key = $_GET['api_key'] ?? null;
 
-        if ($api_key) {
-            $ch = curl_init();
-            $url = $svc_url . '/merchant/' . $api_key . '/list_payments/all';
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($ch);
-            curl_close($ch);
+    if (!$api_key) {
+        header('Location: /');
+        exit();
+    }
 
-            $transactions = json_decode($response, true);
-        }
-    ?>
+    // Validate the API key
+    if (!preg_match('/^G\d{2}[a-zA-Z0-9]{56}$/', $api_key)) {
+        header('Location: /?a=ik');
+        exit();
+    }
+
+    $ch = curl_init();
+    $url = $svc_url . '/merchant/' . $api_key . '/list_payments/all';
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $transactions = json_decode($response, true);
+?>
+
     <div class="container my-4"<?php if ($api_key): ?> style="max-width: 100%;"<?php endif; ?>>
 
 
@@ -42,30 +52,7 @@
         <span class="pagelayer-divider-seperator"></span>
         </div></h1>
 
-        <?php if (!$api_key): ?>
 
-    <div class="container h-100">
-        <div class="d-flex justify-content-center h-100">
-            <div class="user_card">
-                <div class="d-flex justify-content-center form_container">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="text" name="api_key" class="form-control input_user" value="" placeholder="API key">
-                        </div>
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <button type="submit" name="button" class="btn login_btn">Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-        <?php else: ?>
 
         <div class="row mb-4">
             <div class="col-md-3">
@@ -170,7 +157,6 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php endif; ?>
     </div>
     
 

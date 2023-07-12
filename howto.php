@@ -16,8 +16,9 @@
 <body>
     <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(0);
+ini_set('display_errors', 0);
+
         $contract = '0x83e6b68028D3F25631B2e60f7023de201c1FE996';
         $svc_url = 'https://merchants.bloompay.co.uk';
         $self_url = "https://" . $_SERVER['HTTP_HOST'] . '/';//. $_SERVER['PHP_SELF'];
@@ -40,7 +41,7 @@ ini_set('display_errors', 1);
         $wallet = json_decode(curl_exec($ch), true);
         curl_close($ch);
 
-        $mnemonic = $wallet['mnemonic'];
+        //$mnemonic = $wallet['mnemonic'];
         $merchant_address = $wallet['merchant_address']['address'];
     ?>
     <div class="container my-4">
