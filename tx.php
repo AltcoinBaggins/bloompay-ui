@@ -747,6 +747,8 @@ $(document).ready(function() {
     });
 });
 
+
+// Copy MAX AMOUNT value
 function fillUsdsAmount() {
     var usdsAmount = document.getElementById("usdsAmount");
     var spanAmount = document.querySelector(".usdsAmount");
@@ -760,6 +762,12 @@ function fillBnbAmount() {
 
     bnbAmount.value = spanAmount.innerText;
 }
+
+// Reset modals after close
+$(document).on('hidden.bs.modal', '.modal', function () {
+  $(this).find('.modal-body').find('input[type="text"], input[type="number"]').val('');
+  $(this).find('.modal-body').find('.alert').hide();
+});
 
     </script>
 </body>
