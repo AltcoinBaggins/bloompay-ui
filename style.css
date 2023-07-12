@@ -119,3 +119,13 @@ footer {
     overflow: hidden;
     margin-top: 70px;
 }
+
+@keyframes fade {
+    0% {opacity: 1;}
+    50% {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+
+#google2FAQrCodePlaceholder {
+    animation: fade 2s infinite;
+}

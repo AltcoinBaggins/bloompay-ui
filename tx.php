@@ -268,7 +268,7 @@
                         </small>
                         <br />
                         <p><b class="highlight"><span data-wallet-address>...</span></b></p>
-                        <img src="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 100px; border: 3px solid black; margin-top: 10px; float: left;" />
+                        <img src="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/wallet_address_qr" alt="Merchant Wallet" style="max-width: 125px; margin-top: 10px; float: left;" />
                     </div>
                 </div>
             </div>
@@ -290,9 +290,10 @@
                     <div class="alert" id="google2FAAlert" role="alert" style="display: none;"></div>
                     <div id="google2FASetup">
                         <p>Scan the QR code with your Google Authenticator app:</p>
-                        <div class="text-center">
-                            <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; margin: 10px auto 30px;;" />
-                        </div>
+                            <div class="text-center">
+                                <img id="google2FAQrCodePlaceholder" src="qr_placeholder.png" alt="Placeholder" style="max-width: 200px; margin: 10px auto 30px; display: none;" />
+                                <img id="google2FAQrCode" src="" alt="Google 2FA QR Code" style="max-width: 200px; margin: 10px auto 30px; display: none;" />
+                            </div>
                         <form id="google2FAForm">
                             <label for="google2FACode">Enter the 6-digit code from the app:</label><br />
                             <div class="form-row">
@@ -713,15 +714,22 @@ $(document).ready(function() {
     var secret;
     var label = 'merchant ' + apiKey.substring(0, 4) + '-' + apiKey.substring(apiKey.length - 4);
 
-    $('#google2FAModal').on('show.bs.modal', function() {
+    $(document).on('show.bs.modal', '#google2FAModal', function() {
         var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/generate_2fa';
+        $('#google2FAQrCodePlaceholder').show();
+        //$('#google2FALoadingSpinner').show();
         $.getJSON(url, function(data) {
             secret = data.secret;
-            $('#google2FAQrCode').attr('src', 'https://merchants.bloompay.co.uk/merchant/2fa_qr_code?secret=' + secret + '&label=' + encodeURIComponent(label));
+            var qrCodeUrl = 'https://merchants.bloompay.co.uk/merchant/2fa_qr_code?secret=' + secret + '&label=' + encodeURIComponent(label);
+            $('#google2FAQrCode').attr('src', qrCodeUrl).on('load', function() {
+                //$('#google2FALoadingSpinner').hide();
+                $('#google2FAQrCodePlaceholder').hide();
+                $('#google2FAQrCode').show();
+            });
         });
     });
 
-    $('#google2FAForm').on('submit', function(event) {
+    $(document).on('submit', '#google2FAForm', function(event) {
         event.preventDefault();
         var code = $('#google2FACode').val();
         var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/test_2fa?code=' + code;
