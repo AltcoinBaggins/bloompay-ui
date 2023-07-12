@@ -50,7 +50,7 @@
             <div class="pagelayer-divider-holder">
                 <span class="pagelayer-divider-seperator"></span>
             </div>
-            <a class="btn login_btn right" href="/">Log Out</a>
+            <a class="btn btn-primary btn-sm" style="float: right;" href="/">Log Out</a>
         </h1>
 
         <div class="row mb-4">
