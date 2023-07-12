@@ -46,11 +46,14 @@
 
     <div class="container my-4"<?php if ($api_key): ?> style="max-width: 100%;"<?php endif; ?>>
 
-        <h1 class="mb-5">Bloompay Merchant Dashboard<!--/h1-->
+        <h1 class="mb-5">
+            <a class="btn btn-secondary btn-sm" style="float: right;width: 100px;text-transform: none;" href="/">Log Out</a>
+
+            Bloompay Merchant Dashboard
+
             <div class="pagelayer-divider-holder">
                 <span class="pagelayer-divider-seperator"></span>
             </div>
-            <a class="btn btn-primary btn-sm" style="float: right;" href="/">Log Out</a>
         </h1>
 
         <div class="row mb-4">
