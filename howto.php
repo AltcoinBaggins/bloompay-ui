@@ -190,15 +190,37 @@ ini_set('display_errors', 1);
             <i class="glyphicon glyphicon-hourglass"></i>
             To prevent loss of funds make sure you backup your new merchant wallet. This file will also include your API key backup and mnemonic phrase.
             <div class="text-center">
-                <a href="https://merchants.bloompay.co.uk/merchant/<?= $api_key ?>/export_wallet" id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up">
+                <button id="backupButton" class="btn btn-primary mt-3" Xdata-loading="Backing up" data-toggle="modal" data-target="#backupWalletModal">
                     Backup Wallet
-                </a>
+                </button>
             </div>
         </div>
 
     </div>
 
-
+    <!-- Backup Wallet Modal -->
+    <div class="modal fade" id="backupWalletModal" tabindex="-1" role="dialog" aria-labelledby="backupWalletModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="backupWalletModalLabel">Backup Wallet</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert" id="backupWalletAlert" role="alert" style="display: none;"></div>
+                    <form id="backupWalletForm">
+                        <div class="form-group">
+                            <label for="backupWalletCode">Google 2FA Code</label>
+                            <input type="text" class="form-control" id="backupWalletCode" placeholder="2FA">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Backup Wallet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
       © 2022 - <?php echo date('Y'); ?> Bloomshares Ltd
@@ -234,6 +256,35 @@ ini_set('display_errors', 1);
         // Initialize tooltips
         $('[data-toggle="tooltip"]').tooltip();
     });
+
+
+// Wallet Backup
+$(document).on('submit', '#backupWalletForm', function(event) {
+    event.preventDefault();
+
+    var backupWalletCode = $('#backupWalletCode').val();
+
+    if (!backupWalletCode.match(/^\d{6}$/)) {
+        $('#backupWalletAlert').addClass('alert alert-danger').text('Please enter a valid Google 2FA code.').show();
+        return;
+    }
+
+    $('#backupWalletAlert').addClass('alert alert-info').text('Validating...').show();
+
+    var apiKey = '<?= $api_key ?>';
+    var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/test_2fa?code=' + backupWalletCode;
+    $.getJSON(url, function(data) {
+        if (data.success) {
+            $('#backupWalletAlert').removeClass('alert-info').removeClass('alert-danger').addClass('alert alert-success').text('2FA code validated successfully.');
+            $('#backupWalletModal').modal('hide');
+            window.location.href = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/export_wallet?code=' + backupWalletCode;
+        } else {
+            $('#backupWalletAlert').removeClass('alert-info').addClass('alert alert-danger').text('Invalid 2FA code. Please try again.');
+        }
+    });
+});
+
+    
     </script>
 
 
