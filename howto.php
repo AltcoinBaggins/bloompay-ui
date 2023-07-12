@@ -35,7 +35,7 @@ ini_set('display_errors', 1);
         }
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://merchants.bloompay.co.uk/merchant/{$api_key}/export_wallet");
+        curl_setopt($ch, CURLOPT_URL, "https://merchants.bloompay.co.uk/merchant/{$api_key}/export_wallet_info");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $wallet = json_decode(curl_exec($ch), true);
         curl_close($ch);
