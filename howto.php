@@ -181,11 +181,10 @@ ini_set('display_errors', 1);
         </div>
         <br />
 
-        Now you are ready to receive payments in USDS. Payments from your ecommerce store linked to the generated API key
-        will appear automatically in your TrustWallet.
+        Now you are ready to receive payments in USDS.
 
         <br /><br />
-
+<!--
         <div class="alert alert-danger" role="alert">
             <i class="glyphicon glyphicon-hourglass"></i>
             To prevent loss of funds make sure you backup your new merchant wallet. This file will also include your API key backup and mnemonic phrase.
@@ -195,7 +194,7 @@ ini_set('display_errors', 1);
                 </button>
             </div>
         </div>
-
+-->
     </div>
 
     <!-- Backup Wallet Modal -->
@@ -284,7 +283,7 @@ $(document).on('submit', '#backupWalletForm', function(event) {
     });
 });
 
-    
+
     </script>
 
 
