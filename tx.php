@@ -50,6 +50,9 @@
         <h1 class="mb-5">Bloompay Merchant Dashboard<!--/h1-->
         <div class="pagelayer-divider-holder">
         <span class="pagelayer-divider-seperator"></span>
+
+        <a class="btn login_btn right" href="/">Log Out</a>
+
         </div></h1>
 
 
