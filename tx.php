@@ -133,7 +133,7 @@
             </div>
         </div>
 
-
+        <img src="qr_placeholder.png" style="height: 1px; width: 1px; opacity: 0.5; overflow: hidden; float: right; position: absolute;" />
 
         <br /><br />
 
@@ -716,6 +716,7 @@ $(document).ready(function() {
 
     $(document).on('show.bs.modal', '#google2FAModal', function() {
         var url = 'https://merchants.bloompay.co.uk/merchant/' + apiKey + '/generate_2fa';
+        $('#google2FAQrCode').hide();
         $('#google2FAQrCodePlaceholder').show();
         //$('#google2FALoadingSpinner').show();
         $.getJSON(url, function(data) {
